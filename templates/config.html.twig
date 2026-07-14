@@ -11,25 +11,33 @@
         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
 
         <div class="card-body">
+
+            <h4 class="card-title">{{ __('Step 1 — Connection', 'ldapreauth') }}</h4>
+            <p class="text-muted">{{ __('Select the protocol and the directory server. Keep certificate verification enabled whenever possible.', 'ldapreauth') }}</p>
+
+            {{ fields.dropdownArrayField(
+                'protocol',
+                current_config['protocol'],
+                { 'ldaps': 'ldaps://', 'ldap': 'ldap://' },
+                __('Protocol', 'ldapreauth'),
+                { 'helper': __('ldaps:// (recommended) encrypts the connection. Combine plain ldap:// with StartTLS.', 'ldapreauth') }
+            ) }}
+
             {{ fields.textField(
                 'server',
                 current_config['server'],
-                __('LDAP server URI', 'ldapreauth'),
-                { 'helper': 'ldaps://dc01.example.com' }
+                __('LDAP server', 'ldapreauth'),
+                {
+                    'placeholder': 'dc01.example.com',
+                    'helper': __('Host name, e.g. dc01.example.com. A full URI such as ldaps://host:636 also works and overrides the protocol.', 'ldapreauth')
+                }
             ) }}
 
-            {{ fields.textField(
-                'ad_domain',
-                current_config['ad_domain'],
-                __('Active Directory UPN suffix', 'ldapreauth'),
-                { 'helper': __('Optional. e.g. example.com → user@example.com', 'ldapreauth') }
-            ) }}
-
-            {{ fields.textField(
-                'ad_netbios',
-                current_config['ad_netbios'],
-                __('Active Directory NetBIOS domain', 'ldapreauth'),
-                { 'helper': __('Optional. e.g. EXAMPLE → EXAMPLE\\user', 'ldapreauth') }
+            {{ fields.dropdownYesNo(
+                'use_starttls',
+                current_config['use_starttls'],
+                __('Use StartTLS', 'ldapreauth'),
+                { 'helper': __('Upgrades a plain ldap:// connection to TLS before binding. Do not use with ldaps:// URIs.', 'ldapreauth') }
             ) }}
 
             {{ fields.dropdownYesNo(
@@ -37,6 +45,68 @@
                 current_config['tls_verify'],
                 __('Verify the LDAPS server certificate', 'ldapreauth'),
                 { 'helper': __('Turn off only for an internal CA the GLPI host does not trust.', 'ldapreauth') }
+            ) }}
+
+            <h4 class="card-title mt-4">{{ __('Step 2 — Active Directory (direct bind)', 'ldapreauth') }}</h4>
+            <p class="text-muted">{{ __('Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories.', 'ldapreauth') }}</p>
+
+            {{ fields.textField(
+                'ad_domain',
+                current_config['ad_domain'],
+                __('Active Directory UPN suffix', 'ldapreauth'),
+                {
+                    'placeholder': 'example.com',
+                    'helper': __('Optional. e.g. example.com → user@example.com', 'ldapreauth')
+                }
+            ) }}
+
+            {{ fields.textField(
+                'ad_netbios',
+                current_config['ad_netbios'],
+                __('Active Directory NetBIOS domain', 'ldapreauth'),
+                {
+                    'placeholder': 'EXAMPLE',
+                    'helper': __('Optional. e.g. EXAMPLE → EXAMPLE\\user', 'ldapreauth')
+                }
+            ) }}
+
+            <h4 class="card-title mt-4">{{ __('Step 3 — Other directories (search & bind)', 'ldapreauth') }}</h4>
+            <p class="text-muted">{{ __('Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN.', 'ldapreauth') }}</p>
+
+            {{ fields.textField(
+                'base_dn',
+                current_config['base_dn'],
+                __('Base DN', 'ldapreauth'),
+                {
+                    'placeholder': 'ou=people,dc=example,dc=com',
+                    'helper': __('Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com', 'ldapreauth')
+                }
+            ) }}
+
+            {{ fields.textField(
+                'login_attr',
+                current_config['login_attr'],
+                __('Login attribute', 'ldapreauth'),
+                {
+                    'placeholder': 'uid',
+                    'helper': __('Attribute compared with the entered username. e.g. uid or sAMAccountName', 'ldapreauth')
+                }
+            ) }}
+
+            {{ fields.textField(
+                'bind_dn',
+                current_config['bind_dn'],
+                __('Search user DN', 'ldapreauth'),
+                {
+                    'placeholder': 'cn=glpi-search,ou=service,dc=example,dc=com',
+                    'helper': __('Optional. Account used to look up the user DN. Leave empty for an anonymous search.', 'ldapreauth')
+                }
+            ) }}
+
+            {{ fields.passwordField(
+                'bind_pass',
+                current_config['bind_pass'],
+                __('Search user password', 'ldapreauth')
             ) }}
         </div>
 

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:30+0000\n"
+"PO-Revision-Date: 2026-07-14 14:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: de_DE\n"
 "Language: de_DE\n"
@@ -33,6 +33,9 @@ msgstr "Der LDAP-Server ist nicht konfiguriert (Setup > Allgemein > LDAP Re-auth
 msgid "Invalid LDAP server URI: %s"
 msgstr "Ungültige LDAP-Server-URI: %s"
 
+msgid "StartTLS failed: %s"
+msgstr "StartTLS fehlgeschlagen: %s"
+
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "LDAP-Authentifizierung für „%1$s“ fehlgeschlagen. Fehler: %2$s"
 
@@ -45,8 +48,41 @@ msgstr "LDAP-Neuanmeldung erfolgreich – abgelehnt als „%s“"
 msgid "LDAP Re-auth on Approval"
 msgstr "LDAP-Neuanmeldung bei Genehmigung"
 
-msgid "LDAP server URI"
-msgstr "LDAP-Server-URI"
+msgid "Step 1 — Connection"
+msgstr "Schritt 1 – Verbindung"
+
+msgid "Select the protocol and the directory server. Keep certificate verification enabled whenever possible."
+msgstr "Wählen Sie das Protokoll und den Verzeichnisserver. Lassen Sie die Zertifikatsprüfung nach Möglichkeit aktiviert."
+
+msgid "Protocol"
+msgstr "Protokoll"
+
+msgid "ldaps:// (recommended) encrypts the connection. Combine plain ldap:// with StartTLS."
+msgstr "ldaps:// (empfohlen) verschlüsselt die Verbindung. Unverschlüsseltes ldap:// mit StartTLS kombinieren."
+
+msgid "LDAP server"
+msgstr "LDAP-Server"
+
+msgid "Host name, e.g. dc01.example.com. A full URI such as ldaps://host:636 also works and overrides the protocol."
+msgstr "Hostname, z. B. dc01.example.com. Eine vollständige URI wie ldaps://host:636 funktioniert ebenfalls und hat Vorrang vor dem Protokoll."
+
+msgid "Use StartTLS"
+msgstr "StartTLS verwenden"
+
+msgid "Upgrades a plain ldap:// connection to TLS before binding. Do not use with ldaps:// URIs."
+msgstr "Wertet eine unverschlüsselte ldap://-Verbindung vor dem Binden zu TLS auf. Nicht mit ldaps://-URIs verwenden."
+
+msgid "Verify the LDAPS server certificate"
+msgstr "LDAPS-Serverzertifikat überprüfen"
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr "Nur deaktivieren für eine interne CA, der der GLPI-Host nicht vertraut."
+
+msgid "Step 2 — Active Directory (direct bind)"
+msgstr "Schritt 2 – Active Directory (Direkt-Bind)"
+
+msgid "Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories."
+msgstr "Nur für Active Directory: Kurze Logins werden zu user@domain und DOMAIN\\user erweitert. Überspringen Sie diesen Schritt bei anderen Verzeichnissen."
 
 msgid "Active Directory UPN suffix"
 msgstr "Active-Directory-UPN-Suffix"
@@ -60,8 +96,32 @@ msgstr "Active-Directory-NetBIOS-Domäne"
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Optional. z. B. EXAMPLE → EXAMPLE\\user"
 
-msgid "Verify the LDAPS server certificate"
-msgstr "LDAPS-Serverzertifikat überprüfen"
+msgid "Step 3 — Other directories (search & bind)"
+msgstr "Schritt 3 – Andere Verzeichnisse (Suchen & Binden)"
 
-msgid "Turn off only for an internal CA the GLPI host does not trust."
-msgstr "Nur deaktivieren für eine interne CA, der der GLPI-Host nicht vertraut."
+msgid "Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN."
+msgstr "Nur für Verzeichnisse wie OpenLDAP, bei denen ein kurzes Login nicht direkt binden kann: Das Plugin sucht den Benutzer unterhalb des Basis-DN und bindet dann mit dem gefundenen DN."
+
+msgid "Base DN"
+msgstr "Basis-DN"
+
+msgid "Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com"
+msgstr "Optional. Aktiviert Suchen & Binden für Verzeichnisse wie OpenLDAP. z. B. dc=example,dc=com"
+
+msgid "Login attribute"
+msgstr "Login-Attribut"
+
+msgid "Attribute compared with the entered username. e.g. uid or sAMAccountName"
+msgstr "Attribut, das mit dem eingegebenen Benutzernamen verglichen wird. z. B. uid oder sAMAccountName"
+
+msgid "Search user DN"
+msgstr "DN des Suchbenutzers"
+
+msgid "Optional. Account used to look up the user DN. Leave empty for an anonymous search."
+msgstr "Optional. Konto zum Ermitteln des Benutzer-DN. Leer lassen für eine anonyme Suche."
+
+msgid "Search user password"
+msgstr "Passwort des Suchbenutzers"
+
+msgid "This plugin requires the PHP LDAP extension."
+msgstr "Dieses Plugin benötigt die PHP-LDAP-Erweiterung."

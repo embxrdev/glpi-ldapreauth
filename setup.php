@@ -87,7 +87,7 @@ function plugin_version_ldapreauth()
 function plugin_ldapreauth_check_prerequisites()
 {
     if (!function_exists('ldap_connect')) {
-        echo 'This plugin requires the PHP LDAP extension.';
+        echo __('This plugin requires the PHP LDAP extension.', 'ldapreauth');
         return false;
     }
     return true;

@@ -17,8 +17,32 @@
    }
    window.LdapReauthInit = true;
 
-   var LABEL_USER = "Windows username";
-   var LABEL_PASS = "Windows password";
+   // Field labels per language, keyed by the <html> lang attribute
+   // (full code first, then 2-letter prefix). Falls back to English.
+   var LABELS = {
+      en: ["Windows username", "Windows password"],
+      cs: ["Uživatelské jméno Windows", "Heslo Windows"],
+      de: ["Windows-Benutzername", "Windows-Passwort"],
+      es: ["Nombre de usuario de Windows", "Contraseña de Windows"],
+      fr: ["Nom d'utilisateur Windows", "Mot de passe Windows"],
+      it: ["Nome utente Windows", "Password di Windows"],
+      ja: ["Windows ユーザー名", "Windows パスワード"],
+      nl: ["Windows-gebruikersnaam", "Windows-wachtwoord"],
+      pl: ["Nazwa użytkownika Windows", "Hasło Windows"],
+      pt: ["Nome de usuário do Windows", "Senha do Windows"],
+      ru: ["Имя пользователя Windows", "Пароль Windows"],
+      tr: ["Windows kullanıcı adı", "Windows parolası"],
+      zh: ["Windows 用户名", "Windows 密码"]
+   };
+
+   function pickLabels() {
+      var lang = (document.documentElement.getAttribute("lang") || "en")
+         .toLowerCase().replace("-", "_");
+      return LABELS[lang] || LABELS[lang.split("_")[0]] || LABELS.en;
+   }
+
+   var LABEL_USER = pickLabels()[0];
+   var LABEL_PASS = pickLabels()[1];
 
    var FIELDS_HTML =
       "<div class='ldapreauth-fields' style='margin-top:12px;margin-bottom:12px;'>" +

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:30+0000\n"
+"PO-Revision-Date: 2026-07-14 14:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: \n"
 "Language: \n"
@@ -33,6 +33,9 @@ msgstr ""
 msgid "Invalid LDAP server URI: %s"
 msgstr ""
 
+msgid "StartTLS failed: %s"
+msgstr ""
+
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr ""
 
@@ -45,7 +48,40 @@ msgstr ""
 msgid "LDAP Re-auth on Approval"
 msgstr ""
 
-msgid "LDAP server URI"
+msgid "Step 1 — Connection"
+msgstr ""
+
+msgid "Select the protocol and the directory server. Keep certificate verification enabled whenever possible."
+msgstr ""
+
+msgid "Protocol"
+msgstr ""
+
+msgid "ldaps:// (recommended) encrypts the connection. Combine plain ldap:// with StartTLS."
+msgstr ""
+
+msgid "LDAP server"
+msgstr ""
+
+msgid "Host name, e.g. dc01.example.com. A full URI such as ldaps://host:636 also works and overrides the protocol."
+msgstr ""
+
+msgid "Use StartTLS"
+msgstr ""
+
+msgid "Upgrades a plain ldap:// connection to TLS before binding. Do not use with ldaps:// URIs."
+msgstr ""
+
+msgid "Verify the LDAPS server certificate"
+msgstr ""
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr ""
+
+msgid "Step 2 — Active Directory (direct bind)"
+msgstr ""
+
+msgid "Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories."
 msgstr ""
 
 msgid "Active Directory UPN suffix"
@@ -60,8 +96,32 @@ msgstr ""
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr ""
 
-msgid "Verify the LDAPS server certificate"
+msgid "Step 3 — Other directories (search & bind)"
 msgstr ""
 
-msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgid "Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN."
+msgstr ""
+
+msgid "Base DN"
+msgstr ""
+
+msgid "Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com"
+msgstr ""
+
+msgid "Login attribute"
+msgstr ""
+
+msgid "Attribute compared with the entered username. e.g. uid or sAMAccountName"
+msgstr ""
+
+msgid "Search user DN"
+msgstr ""
+
+msgid "Optional. Account used to look up the user DN. Leave empty for an anonymous search."
+msgstr ""
+
+msgid "Search user password"
+msgstr ""
+
+msgid "This plugin requires the PHP LDAP extension."
 msgstr ""

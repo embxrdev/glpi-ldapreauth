@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:30+0000\n"
+"PO-Revision-Date: 2026-07-14 14:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: ru_RU\n"
 "Language: ru_RU\n"
@@ -33,6 +33,9 @@ msgstr "Сервер LDAP не настроен (Настройки > Общие
 msgid "Invalid LDAP server URI: %s"
 msgstr "Недопустимый URI сервера LDAP: %s"
 
+msgid "StartTLS failed: %s"
+msgstr "Сбой StartTLS: %s"
+
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "Ошибка аутентификации LDAP для «%1$s». Ошибка: %2$s"
 
@@ -45,8 +48,41 @@ msgstr "Повторная аутентификация LDAP выполнена 
 msgid "LDAP Re-auth on Approval"
 msgstr "Повторная аутентификация LDAP при утверждении"
 
-msgid "LDAP server URI"
-msgstr "URI сервера LDAP"
+msgid "Step 1 — Connection"
+msgstr "Шаг 1 — Подключение"
+
+msgid "Select the protocol and the directory server. Keep certificate verification enabled whenever possible."
+msgstr "Выберите протокол и сервер каталога. По возможности оставляйте проверку сертификата включённой."
+
+msgid "Protocol"
+msgstr "Протокол"
+
+msgid "ldaps:// (recommended) encrypts the connection. Combine plain ldap:// with StartTLS."
+msgstr "ldaps:// (рекомендуется) шифрует соединение. Обычный ldap:// сочетайте со StartTLS."
+
+msgid "LDAP server"
+msgstr "Сервер LDAP"
+
+msgid "Host name, e.g. dc01.example.com. A full URI such as ldaps://host:636 also works and overrides the protocol."
+msgstr "Имя хоста, напр. dc01.example.com. Полный URI, например ldaps://host:636, тоже работает и имеет приоритет над протоколом."
+
+msgid "Use StartTLS"
+msgstr "Использовать StartTLS"
+
+msgid "Upgrades a plain ldap:// connection to TLS before binding. Do not use with ldaps:// URIs."
+msgstr "Переводит обычное соединение ldap:// на TLS перед привязкой. Не используйте с URI ldaps://."
+
+msgid "Verify the LDAPS server certificate"
+msgstr "Проверять сертификат сервера LDAPS"
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr "Отключайте только для внутреннего ЦС, которому хост GLPI не доверяет."
+
+msgid "Step 2 — Active Directory (direct bind)"
+msgstr "Шаг 2 — Active Directory (прямая привязка)"
+
+msgid "Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories."
+msgstr "Только для Active Directory: короткие логины расширяются до user@domain и DOMAIN\\user. Для других каталогов пропустите этот шаг."
 
 msgid "Active Directory UPN suffix"
 msgstr "UPN-суффикс Active Directory"
@@ -60,8 +96,32 @@ msgstr "NetBIOS-домен Active Directory"
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Необязательно. Напр. EXAMPLE → EXAMPLE\\user"
 
-msgid "Verify the LDAPS server certificate"
-msgstr "Проверять сертификат сервера LDAPS"
+msgid "Step 3 — Other directories (search & bind)"
+msgstr "Шаг 3 — Другие каталоги (search & bind)"
 
-msgid "Turn off only for an internal CA the GLPI host does not trust."
-msgstr "Отключайте только для внутреннего ЦС, которому хост GLPI не доверяет."
+msgid "Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN."
+msgstr "Только для каталогов, таких как OpenLDAP, где короткий логин не может привязаться напрямую: плагин находит пользователя под базовым DN и затем привязывается с найденным DN."
+
+msgid "Base DN"
+msgstr "Базовый DN"
+
+msgid "Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com"
+msgstr "Необязательно. Включает поиск и привязку (search & bind) для каталогов, таких как OpenLDAP. Напр. dc=example,dc=com"
+
+msgid "Login attribute"
+msgstr "Атрибут входа"
+
+msgid "Attribute compared with the entered username. e.g. uid or sAMAccountName"
+msgstr "Атрибут, сравниваемый с введённым именем пользователя. Напр. uid или sAMAccountName"
+
+msgid "Search user DN"
+msgstr "DN пользователя для поиска"
+
+msgid "Optional. Account used to look up the user DN. Leave empty for an anonymous search."
+msgstr "Необязательно. Учётная запись для поиска DN пользователя. Оставьте пустым для анонимного поиска."
+
+msgid "Search user password"
+msgstr "Пароль пользователя для поиска"
+
+msgid "This plugin requires the PHP LDAP extension."
+msgstr "Для этого плагина требуется расширение PHP LDAP."

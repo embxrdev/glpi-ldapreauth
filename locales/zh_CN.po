@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:30+0000\n"
+"PO-Revision-Date: 2026-07-14 14:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: zh_CN\n"
 "Language: zh_CN\n"
@@ -33,6 +33,9 @@ msgstr "未配置 LDAP 服务器（设置 > 常规 > LDAP Re-auth）。"
 msgid "Invalid LDAP server URI: %s"
 msgstr "无效的 LDAP 服务器 URI：%s"
 
+msgid "StartTLS failed: %s"
+msgstr "StartTLS 失败：%s"
+
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "用户“%1$s”的 LDAP 身份验证失败。错误：%2$s"
 
@@ -45,8 +48,41 @@ msgstr "LDAP 重新认证成功 — 已以“%s”身份拒绝"
 msgid "LDAP Re-auth on Approval"
 msgstr "审批时 LDAP 重新认证"
 
-msgid "LDAP server URI"
-msgstr "LDAP 服务器 URI"
+msgid "Step 1 — Connection"
+msgstr "第 1 步 — 连接"
+
+msgid "Select the protocol and the directory server. Keep certificate verification enabled whenever possible."
+msgstr "选择协议和目录服务器。请尽可能保持证书验证开启。"
+
+msgid "Protocol"
+msgstr "协议"
+
+msgid "ldaps:// (recommended) encrypts the connection. Combine plain ldap:// with StartTLS."
+msgstr "ldaps://（推荐）加密连接。普通 ldap:// 请与 StartTLS 搭配使用。"
+
+msgid "LDAP server"
+msgstr "LDAP 服务器"
+
+msgid "Host name, e.g. dc01.example.com. A full URI such as ldaps://host:636 also works and overrides the protocol."
+msgstr "主机名，例如 dc01.example.com。也可填写完整 URI（如 ldaps://host:636），此时将优先于协议设置。"
+
+msgid "Use StartTLS"
+msgstr "使用 StartTLS"
+
+msgid "Upgrades a plain ldap:// connection to TLS before binding. Do not use with ldaps:// URIs."
+msgstr "在绑定前将普通 ldap:// 连接升级为 TLS。请勿与 ldaps:// URI 同时使用。"
+
+msgid "Verify the LDAPS server certificate"
+msgstr "验证 LDAPS 服务器证书"
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr "仅在 GLPI 主机不信任的内部 CA 时才关闭。"
+
+msgid "Step 2 — Active Directory (direct bind)"
+msgstr "第 2 步 — Active Directory（直接绑定）"
+
+msgid "Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories."
+msgstr "仅适用于 Active Directory：短登录名会扩展为 user@domain 和 DOMAIN\\user。其他目录请跳过此步骤。"
 
 msgid "Active Directory UPN suffix"
 msgstr "Active Directory UPN 后缀"
@@ -60,8 +96,32 @@ msgstr "Active Directory NetBIOS 域"
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "可选。例如 EXAMPLE → EXAMPLE\\user"
 
-msgid "Verify the LDAPS server certificate"
-msgstr "验证 LDAPS 服务器证书"
+msgid "Step 3 — Other directories (search & bind)"
+msgstr "第 3 步 — 其他目录（先搜索后绑定）"
 
-msgid "Turn off only for an internal CA the GLPI host does not trust."
-msgstr "仅在 GLPI 主机不信任的内部 CA 时才关闭。"
+msgid "Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN."
+msgstr "仅适用于 OpenLDAP 等短登录名无法直接绑定的目录：插件在基准 DN 下查找用户，然后使用找到的 DN 进行绑定。"
+
+msgid "Base DN"
+msgstr "基准 DN"
+
+msgid "Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com"
+msgstr "可选。为 OpenLDAP 等目录启用先搜索后绑定。例如 dc=example,dc=com"
+
+msgid "Login attribute"
+msgstr "登录属性"
+
+msgid "Attribute compared with the entered username. e.g. uid or sAMAccountName"
+msgstr "与输入的用户名进行匹配的属性。例如 uid 或 sAMAccountName"
+
+msgid "Search user DN"
+msgstr "搜索用户 DN"
+
+msgid "Optional. Account used to look up the user DN. Leave empty for an anonymous search."
+msgstr "可选。用于查找用户 DN 的帐户。留空则使用匿名搜索。"
+
+msgid "Search user password"
+msgstr "搜索用户密码"
+
+msgid "This plugin requires the PHP LDAP extension."
+msgstr "此插件需要 PHP 的 LDAP 扩展。"

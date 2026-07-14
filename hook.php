@@ -20,10 +20,16 @@ if (!defined('GLPI_ROOT')) {
 function plugin_ldapreauth_install()
 {
     Config::setConfigurationValues(PLUGIN_LDAPREAUTH_CONTEXT, [
-        'server'     => '',
-        'ad_domain'  => '',
-        'ad_netbios' => '',
-        'tls_verify' => '1', // verify LDAPS certificate
+        'protocol'     => 'ldaps', // ldaps:// (recommended) or ldap://
+        'server'       => '',
+        'ad_domain'    => '',
+        'ad_netbios'   => '',
+        'base_dn'      => '',    // enables search & bind (OpenLDAP etc.)
+        'login_attr'   => 'uid', // attribute matched against the entered login
+        'bind_dn'      => '',    // optional service account for the search
+        'bind_pass'    => '',
+        'use_starttls' => '0',
+        'tls_verify'   => '1',   // verify LDAPS certificate
     ]);
 
     return true;
@@ -248,7 +254,23 @@ function plugin_ldapreauth_check_ldap_credentials(string $login, string $passwor
     $server_uri = trim($conf['server']     ?? '');
     $ad_domain  = trim($conf['ad_domain']  ?? '');
     $ad_netbios = trim($conf['ad_netbios'] ?? '');
+    $base_dn    = trim($conf['base_dn']    ?? '');
+    $login_attr = trim($conf['login_attr'] ?? '');
+    $bind_dn    = trim($conf['bind_dn']    ?? '');
+    $bind_pass  = (string) ($conf['bind_pass'] ?? '');
+    $starttls   = ($conf['use_starttls'] ?? '0') !== '0';
     $tls_verify = ($conf['tls_verify'] ?? '1') !== '0';
+
+    if ($login_attr === '') {
+        $login_attr = 'uid';
+    }
+
+    // The server may be a bare host name; build the URI from the selected
+    // protocol. A full ldap[s]:// URI is used verbatim and wins.
+    if ($server_uri !== '' && !preg_match('#^ldaps?://#i', $server_uri)) {
+        $protocol   = strtolower(trim($conf['protocol'] ?? 'ldaps')) === 'ldap' ? 'ldap' : 'ldaps';
+        $server_uri = $protocol . '://' . $server_uri;
+    }
 
     if ($server_uri === '') {
         Session::addMessageAfterRedirect(
@@ -282,13 +304,30 @@ function plugin_ldapreauth_check_ldap_credentials(string $login, string $passwor
         @ldap_set_option($conn, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_NEVER);
     }
 
-    // Try the raw login plus optional UPN and NetBIOS forms.
+    // Upgrade a plain ldap:// connection to TLS when requested.
+    if ($starttls && stripos($server_uri, 'ldaps://') !== 0) {
+        if (!@ldap_start_tls($conn)) {
+            Session::addMessageAfterRedirect(
+                sprintf(__('StartTLS failed: %s', 'ldapreauth'), ldap_error($conn)),
+                false,
+                ERROR
+            );
+            @ldap_unbind($conn);
+            return false;
+        }
+    }
+
+    // Direct-bind candidates: raw login, UPN and NetBIOS forms (Active
+    // Directory), plus a composed DN under the base DN (flat LDAP trees).
     $candidates = [$login];
     if ($ad_domain !== '' && stripos($login, '@') === false) {
         $candidates[] = $login . '@' . $ad_domain;
     }
     if ($ad_netbios !== '' && strpos($login, '\\') === false) {
         $candidates[] = $ad_netbios . '\\' . $login;
+    }
+    if ($base_dn !== '' && strpos($login, '=') === false) {
+        $candidates[] = $login_attr . '=' . ldap_escape($login, '', LDAP_ESCAPE_DN) . ',' . $base_dn;
     }
     $candidates = array_unique($candidates);
 
@@ -300,6 +339,29 @@ function plugin_ldapreauth_check_ldap_credentials(string $login, string $passwor
             break;
         }
         $last_error = ldap_error($conn);
+    }
+
+    // Search & bind: find the user's DN under the base DN (service account
+    // or anonymous search), then bind with it. Covers nested trees where the
+    // DN cannot be derived from the login (OpenLDAP, FreeIPA, AD without UPN).
+    if (!$ok && $base_dn !== '') {
+        $search_bound = $bind_dn !== ''
+            ? @ldap_bind($conn, $bind_dn, $bind_pass)
+            : @ldap_bind($conn); // anonymous
+        if ($search_bound) {
+            $filter = '(' . $login_attr . '=' . ldap_escape($login, '', LDAP_ESCAPE_FILTER) . ')';
+            $result = @ldap_search($conn, $base_dn, $filter, ['dn'], 0, 2);
+            $entries = $result ? @ldap_get_entries($conn, $result) : false;
+            if (is_array($entries) && (int) ($entries['count'] ?? 0) === 1) {
+                $user_dn = $entries[0]['dn'] ?? '';
+                if ($user_dn !== '' && @ldap_bind($conn, $user_dn, $password)) {
+                    $ok = true;
+                }
+            }
+        }
+        if (!$ok) {
+            $last_error = ldap_error($conn);
+        }
     }
 
     if (!$ok) {

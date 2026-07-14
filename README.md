@@ -22,14 +22,32 @@ tied to a fresh credential check rather than the existing browser session.
 
 1. Copy the `ldapreauth` directory into your GLPI `plugins/` directory.
 2. Go to **Setup > Plugins**, then install and activate *LDAP Re-auth on Approval*.
-3. Configure it under **Setup > General > LDAP Re-auth on Approval**:
+3. Configure it under **Setup > General > LDAP Re-auth on Approval** — the
+   form guides you through three steps:
+
+   **Step 1 — Connection**
 
    | Setting | Description |
    | --- | --- |
-   | LDAP server URI | e.g. `ldaps://dc01.example.com` (use the FQDN so it matches the certificate) |
-   | AD UPN suffix | optional — enables `user@suffix` bind (e.g. `example.com`) |
-   | AD NetBIOS domain | optional — enables `DOMAIN\user` bind (e.g. `EXAMPLE`) |
+   | Protocol | `ldaps://` (recommended) or `ldap://` (combine with StartTLS) |
+   | LDAP server | host name, e.g. `dc01.example.com` (use the FQDN so it matches the certificate); a full URI such as `ldaps://host:636` also works |
+   | Use StartTLS | upgrades a plain `ldap://` connection to TLS before binding |
    | Verify LDAPS certificate | keep *Yes*; set *No* only for an internal CA the GLPI host does not trust |
+
+   **Step 2 — Active Directory (direct bind)** — skip for other directories
+
+   | Setting | Description |
+   | --- | --- |
+   | AD UPN suffix | enables `user@suffix` bind (e.g. `example.com`) |
+   | AD NetBIOS domain | enables `DOMAIN\user` bind (e.g. `EXAMPLE`) |
+
+   **Step 3 — Other directories (search & bind)** — skip for plain AD
+
+   | Setting | Description |
+   | --- | --- |
+   | Base DN | e.g. `ou=people,dc=example,dc=com`; also enables a composed-DN direct bind |
+   | Login attribute | e.g. `uid` (OpenLDAP) or `sAMAccountName` (AD) |
+   | Search user DN / password | optional service account for the DN lookup; leave empty for an anonymous search |
 
 ## How it works
 
@@ -38,6 +56,9 @@ tied to a fresh credential check rather than the existing browser session.
   answer form (below the comment field).
 - A `pre_item_update` hook blocks the decision (accept or reject) unless the
   credentials bind successfully and belong to the signed-in GLPI approver.
+- Credential verification tries, in order: the raw login, `user@UPN`,
+  `NETBIOS\user`, a composed DN (`<login attribute>=<login>,<Base DN>`), and
+  finally search & bind below the Base DN (service account or anonymous).
 - The same hook enforces the four-eyes principle: the requester of the
   validation is rejected as decision-maker, whether identified by the GLPI
   session or by the entered Windows credentials.

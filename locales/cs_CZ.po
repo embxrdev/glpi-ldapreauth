@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:30+0000\n"
+"PO-Revision-Date: 2026-07-14 14:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: cs_CZ\n"
 "Language: cs_CZ\n"
@@ -33,6 +33,9 @@ msgstr "LDAP server není nakonfigurován (Nastavení > Obecné > LDAP Re-auth).
 msgid "Invalid LDAP server URI: %s"
 msgstr "Neplatné URI LDAP serveru: %s"
 
+msgid "StartTLS failed: %s"
+msgstr "StartTLS se nezdařilo: %s"
+
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "Ověření LDAP se nezdařilo pro „%1$s“. Chyba: %2$s"
 
@@ -45,8 +48,41 @@ msgstr "Opětovné ověření LDAP proběhlo úspěšně — zamítnuto jako „
 msgid "LDAP Re-auth on Approval"
 msgstr "Opětovné ověření LDAP při schvalování"
 
-msgid "LDAP server URI"
-msgstr "URI LDAP serveru"
+msgid "Step 1 — Connection"
+msgstr "Krok 1 — Připojení"
+
+msgid "Select the protocol and the directory server. Keep certificate verification enabled whenever possible."
+msgstr "Vyberte protokol a adresářový server. Ověřování certifikátu ponechte pokud možno zapnuté."
+
+msgid "Protocol"
+msgstr "Protokol"
+
+msgid "ldaps:// (recommended) encrypts the connection. Combine plain ldap:// with StartTLS."
+msgstr "ldaps:// (doporučeno) šifruje připojení. Běžné ldap:// kombinujte se StartTLS."
+
+msgid "LDAP server"
+msgstr "LDAP server"
+
+msgid "Host name, e.g. dc01.example.com. A full URI such as ldaps://host:636 also works and overrides the protocol."
+msgstr "Název hostitele, např. dc01.example.com. Funguje i úplné URI jako ldaps://host:636, které má přednost před protokolem."
+
+msgid "Use StartTLS"
+msgstr "Používat StartTLS"
+
+msgid "Upgrades a plain ldap:// connection to TLS before binding. Do not use with ldaps:// URIs."
+msgstr "Před bindem povýší běžné připojení ldap:// na TLS. Nepoužívejte s URI ldaps://."
+
+msgid "Verify the LDAPS server certificate"
+msgstr "Ověřovat certifikát serveru LDAPS"
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr "Vypněte pouze pro interní CA, které hostitel GLPI nedůvěřuje."
+
+msgid "Step 2 — Active Directory (direct bind)"
+msgstr "Krok 2 — Active Directory (přímý bind)"
+
+msgid "Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories."
+msgstr "Pouze pro Active Directory: krátká přihlašovací jména se rozšíří na user@domain a DOMAIN\\user. U jiných adresářů tento krok přeskočte."
 
 msgid "Active Directory UPN suffix"
 msgstr "Přípona UPN Active Directory"
@@ -60,8 +96,32 @@ msgstr "Doména NetBIOS Active Directory"
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Volitelné. Např. EXAMPLE → EXAMPLE\\user"
 
-msgid "Verify the LDAPS server certificate"
-msgstr "Ověřovat certifikát serveru LDAPS"
+msgid "Step 3 — Other directories (search & bind)"
+msgstr "Krok 3 — Jiné adresáře (vyhledání a bind)"
 
-msgid "Turn off only for an internal CA the GLPI host does not trust."
-msgstr "Vypněte pouze pro interní CA, které hostitel GLPI nedůvěřuje."
+msgid "Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN."
+msgstr "Pouze pro adresáře jako OpenLDAP, kde se krátké přihlašovací jméno nemůže bindovat přímo: zásuvný modul vyhledá uživatele pod základním DN a poté se binduje nalezeným DN."
+
+msgid "Base DN"
+msgstr "Základní DN"
+
+msgid "Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com"
+msgstr "Volitelné. Umožňuje vyhledání a bind pro adresáře jako OpenLDAP. Např. dc=example,dc=com"
+
+msgid "Login attribute"
+msgstr "Přihlašovací atribut"
+
+msgid "Attribute compared with the entered username. e.g. uid or sAMAccountName"
+msgstr "Atribut porovnávaný se zadaným uživatelským jménem. Např. uid nebo sAMAccountName"
+
+msgid "Search user DN"
+msgstr "DN vyhledávacího uživatele"
+
+msgid "Optional. Account used to look up the user DN. Leave empty for an anonymous search."
+msgstr "Volitelné. Účet použitý k vyhledání DN uživatele. Ponechte prázdné pro anonymní vyhledávání."
+
+msgid "Search user password"
+msgstr "Heslo vyhledávacího uživatele"
+
+msgid "This plugin requires the PHP LDAP extension."
+msgstr "Tento zásuvný modul vyžaduje rozšíření PHP LDAP."
