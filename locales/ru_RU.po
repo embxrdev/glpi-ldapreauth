@@ -21,6 +21,9 @@ msgstr "Пароль Windows"
 msgid "A Windows username and password are required to approve or reject."
 msgstr "Для утверждения или отклонения требуются имя пользователя и пароль Windows."
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr "Запросивший утверждение не может утвердить или отклонить собственный запрос — требуется второй человек."
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Пользователь Windows «%1$s» не совпадает с вошедшим пользователем GLPI «%2$s»."
 
@@ -56,9 +59,6 @@ msgstr "NetBIOS-домен Active Directory"
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Необязательно. Напр. EXAMPLE → EXAMPLE\\user"
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
-msgstr "Требовать совпадения пользователя LDAP с вошедшим утверждающим GLPI"
 
 msgid "Verify the LDAPS server certificate"
 msgstr "Проверять сертификат сервера LDAPS"

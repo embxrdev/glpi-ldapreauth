@@ -33,12 +33,6 @@
             ) }}
 
             {{ fields.dropdownYesNo(
-                'enforce_glpi_match',
-                current_config['enforce_glpi_match'],
-                __('Require the LDAP user to match the signed-in GLPI approver', 'ldapreauth')
-            ) }}
-
-            {{ fields.dropdownYesNo(
                 'tls_verify',
                 current_config['tls_verify'],
                 __('Verify the LDAPS server certificate', 'ldapreauth'),

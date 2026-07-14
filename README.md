@@ -5,9 +5,10 @@ ticket approval (`TicketValidation`) is accepted or rejected.
 
 When an approver answers a validation (*Accepted* or *Refused*), the plugin
 prompts for a Windows/LDAP username and password, verifies them with a direct
-LDAP bind **before** the decision is written, and (optionally) requires that
-the LDAP user matches the signed-in GLPI approver. Successful decisions are
-recorded in the ticket history.
+LDAP bind **before** the decision is written, and requires that the LDAP user
+matches the signed-in GLPI approver. A **four-eyes principle** is always
+enforced: the user who requested the validation can never answer it
+themselves. Successful decisions are recorded in the ticket history.
 
 This provides an explicit re-authentication step for approval workflows that
 need it — for example regulated environments that require an approval to be
@@ -28,7 +29,6 @@ tied to a fresh credential check rather than the existing browser session.
    | LDAP server URI | e.g. `ldaps://dc01.example.com` (use the FQDN so it matches the certificate) |
    | AD UPN suffix | optional — enables `user@suffix` bind (e.g. `example.com`) |
    | AD NetBIOS domain | optional — enables `DOMAIN\user` bind (e.g. `EXAMPLE`) |
-   | Require LDAP user to match approver | if *Yes*, the entered user must equal the signed-in GLPI user |
    | Verify LDAPS certificate | keep *Yes*; set *No* only for an internal CA the GLPI host does not trust |
 
 ## How it works
@@ -37,7 +37,10 @@ tied to a fresh credential check rather than the existing browser session.
   form; `public/js/ldapreauth.js` injects the same fields into the timeline
   answer form (below the comment field).
 - A `pre_item_update` hook blocks the decision (accept or reject) unless the
-  credentials bind successfully (and, if enabled, the approver matches).
+  credentials bind successfully and belong to the signed-in GLPI approver.
+- The same hook enforces the four-eyes principle: the requester of the
+  validation is rejected as decision-maker, whether identified by the GLPI
+  session or by the entered Windows credentials.
 - An `item_update` hook writes an audit line to the parent ticket's history.
 - Settings are stored via GLPI's core `Config` (context `plugin:ldapreauth`)
   and rendered through a Twig template; the core Config controller handles
@@ -47,6 +50,8 @@ tied to a fresh credential check rather than the existing browser session.
 
 - The plugin performs a **direct bind** as the entered user; it does not store
   or cache the password.
+- The approver-match and four-eyes checks are **always on** — they are not
+  configurable, so an approval always involves two distinct people.
 - Certificate verification for LDAPS is **on by default**. Disabling it removes
   protection against man-in-the-middle attacks — prefer importing your internal
   CA into the GLPI host's trust store, or use `TLS_REQCERT` in the system

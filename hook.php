@@ -20,11 +20,10 @@ if (!defined('GLPI_ROOT')) {
 function plugin_ldapreauth_install()
 {
     Config::setConfigurationValues(PLUGIN_LDAPREAUTH_CONTEXT, [
-        'server'             => '',
-        'ad_domain'          => '',
-        'ad_netbios'         => '',
-        'enforce_glpi_match' => '1', // require LDAP user == GLPI approver
-        'tls_verify'         => '1', // verify LDAPS certificate
+        'server'     => '',
+        'ad_domain'  => '',
+        'ad_netbios' => '',
+        'tls_verify' => '1', // verify LDAPS certificate
     ]);
 
     return true;
@@ -101,8 +100,6 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
         return;
     }
 
-    $conf       = Config::getConfigurationValues(PLUGIN_LDAPREAUTH_CONTEXT);
-    $enforce    = ($conf['enforce_glpi_match'] ?? '1') !== '0';
     $ldap_login = $input['_ldapreauth_login']    ?? '';
     $ldap_pass  = $input['_ldapreauth_password'] ?? '';
 
@@ -111,6 +108,23 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
         $item->input['status'] = $item->fields['status'];
         unset($item->input['_ldapreauth_password']);
     };
+
+    // Four-eyes principle: the requester of the validation can never answer
+    // it, neither as the signed-in GLPI user nor via the entered credentials.
+    $requester_id = (int) ($item->fields['users_id'] ?? 0);
+    $four_eyes_block = static function () use ($deny, $item): void {
+        Session::addMessageAfterRedirect(
+            __('The approval requester cannot approve or reject their own request — a second person is required.', 'ldapreauth'),
+            false,
+            ERROR
+        );
+        $deny($item);
+    };
+
+    if ($requester_id > 0 && $requester_id === (int) Session::getLoginUserID()) {
+        $four_eyes_block();
+        return;
+    }
 
     if ($ldap_login === '' || $ldap_pass === '') {
         Session::addMessageAfterRedirect(
@@ -122,33 +136,45 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
         return;
     }
 
-    // Optional restriction: the LDAP user must match the GLPI approver.
-    if ($enforce) {
-        $glpi_login = '';
-        $glpi_id    = Session::getLoginUserID();
-        if ($glpi_id) {
-            $u = new User();
-            if ($u->getFromDB($glpi_id)) {
-                $glpi_login = $u->fields['name'] ?? '';
+    // Four-eyes, part 2: the credentials themselves must not belong to the
+    // requester. Redundant with the approver-match check below, but kept as
+    // defence in depth for the always-two-people guarantee.
+    if ($requester_id > 0) {
+        $requester = new User();
+        if ($requester->getFromDB($requester_id)) {
+            $requester_login = plugin_ldapreauth_normalize($requester->fields['name'] ?? '');
+            if ($requester_login !== '' && $requester_login === plugin_ldapreauth_normalize($ldap_login)) {
+                $four_eyes_block();
+                return;
             }
         }
+    }
 
-        $norm_ldap = plugin_ldapreauth_normalize($ldap_login);
-        $norm_glpi = plugin_ldapreauth_normalize($glpi_login);
-
-        if ($norm_ldap === '' || $norm_glpi === '' || $norm_ldap !== $norm_glpi) {
-            Session::addMessageAfterRedirect(
-                sprintf(
-                    __('Windows user "%1$s" does not match the signed-in GLPI user "%2$s".', 'ldapreauth'),
-                    $ldap_login,
-                    $glpi_login
-                ),
-                false,
-                ERROR
-            );
-            $deny($item);
-            return;
+    // Mandatory restriction: the LDAP user must match the GLPI approver.
+    $glpi_login = '';
+    $glpi_id    = Session::getLoginUserID();
+    if ($glpi_id) {
+        $u = new User();
+        if ($u->getFromDB($glpi_id)) {
+            $glpi_login = $u->fields['name'] ?? '';
         }
+    }
+
+    $norm_ldap = plugin_ldapreauth_normalize($ldap_login);
+    $norm_glpi = plugin_ldapreauth_normalize($glpi_login);
+
+    if ($norm_ldap === '' || $norm_glpi === '' || $norm_ldap !== $norm_glpi) {
+        Session::addMessageAfterRedirect(
+            sprintf(
+                __('Windows user "%1$s" does not match the signed-in GLPI user "%2$s".', 'ldapreauth'),
+                $ldap_login,
+                $glpi_login
+            ),
+            false,
+            ERROR
+        );
+        $deny($item);
+        return;
     }
 
     // LDAP bind check.

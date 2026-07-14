@@ -21,6 +21,9 @@ msgstr "Windows parolası"
 msgid "A Windows username and password are required to approve or reject."
 msgstr "Onaylamak veya reddetmek için Windows kullanıcı adı ve parolası gereklidir."
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr "Onay talebini oluşturan kişi kendi talebini onaylayamaz veya reddedemez — ikinci bir kişi gereklidir."
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Windows kullanıcısı \"%1$s\", oturum açmış GLPI kullanıcısı \"%2$s\" ile eşleşmiyor."
 
@@ -56,9 +59,6 @@ msgstr "Active Directory NetBIOS etki alanı"
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "İsteğe bağlı. Örn. EXAMPLE → EXAMPLE\\user"
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
-msgstr "LDAP kullanıcısının oturum açmış GLPI onaylayıcısıyla eşleşmesini zorunlu kıl"
 
 msgid "Verify the LDAPS server certificate"
 msgstr "LDAPS sunucu sertifikasını doğrula"

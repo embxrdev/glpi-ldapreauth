@@ -21,6 +21,9 @@ msgstr "Windows 密码"
 msgid "A Windows username and password are required to approve or reject."
 msgstr "审批或拒绝需要提供 Windows 用户名和密码。"
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr "审批请求人不能审批或拒绝自己的请求 — 需要第二人处理。"
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Windows 用户“%1$s”与已登录的 GLPI 用户“%2$s”不匹配。"
 
@@ -56,9 +59,6 @@ msgstr "Active Directory NetBIOS 域"
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "可选。例如 EXAMPLE → EXAMPLE\\user"
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
-msgstr "要求 LDAP 用户与已登录的 GLPI 审批人一致"
 
 msgid "Verify the LDAPS server certificate"
 msgstr "验证 LDAPS 服务器证书"

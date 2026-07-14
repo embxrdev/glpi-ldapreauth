@@ -21,6 +21,9 @@ msgstr ""
 msgid "A Windows username and password are required to approve or reject."
 msgstr ""
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr ""
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr ""
 
@@ -55,9 +58,6 @@ msgid "Active Directory NetBIOS domain"
 msgstr ""
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
-msgstr ""
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
 msgstr ""
 
 msgid "Verify the LDAPS server certificate"

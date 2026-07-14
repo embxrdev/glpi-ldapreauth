@@ -10,7 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - LDAP/Windows re-authentication prompt when answering a ticket approval
   (`TicketValidation`) — enforced for both accepting and rejecting.
 - Direct-bind credential verification with optional UPN and NetBIOS forms.
-- Optional enforcement that the LDAP user matches the signed-in GLPI approver.
+- Mandatory enforcement that the LDAP user matches the signed-in GLPI approver.
+- Four-eyes principle: the requester of a validation can never answer it
+  themselves, neither via the GLPI session nor via the entered credentials.
 - Audit history entry on the parent ticket after a successful decision.
 - Configuration tab under Setup > General (Twig template, core Config controller).
 - Configurable, off-by-default relaxation of LDAPS certificate verification.

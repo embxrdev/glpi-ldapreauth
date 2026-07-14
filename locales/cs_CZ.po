@@ -21,6 +21,9 @@ msgstr "Heslo Windows"
 msgid "A Windows username and password are required to approve or reject."
 msgstr "Ke schválení nebo zamítnutí jsou vyžadovány uživatelské jméno a heslo Windows."
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr "Žadatel o schválení nemůže svou vlastní žádost schválit ani zamítnout — je vyžadována druhá osoba."
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Uživatel Windows „%1$s“ neodpovídá přihlášenému uživateli GLPI „%2$s“."
 
@@ -56,9 +59,6 @@ msgstr "Doména NetBIOS Active Directory"
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Volitelné. Např. EXAMPLE → EXAMPLE\\user"
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
-msgstr "Vyžadovat, aby uživatel LDAP odpovídal přihlášenému schvalovateli GLPI"
 
 msgid "Verify the LDAPS server certificate"
 msgstr "Ověřovat certifikát serveru LDAPS"

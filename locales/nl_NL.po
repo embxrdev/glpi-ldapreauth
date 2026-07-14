@@ -21,6 +21,9 @@ msgstr "Windows-wachtwoord"
 msgid "A Windows username and password are required to approve or reject."
 msgstr "Voor goedkeuring of afwijzing zijn een Windows-gebruikersnaam en -wachtwoord vereist."
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr "De aanvrager van de goedkeuring kan zijn eigen aanvraag niet goedkeuren of afwijzen — een tweede persoon is vereist."
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Windows-gebruiker \"%1$s\" komt niet overeen met de aangemelde GLPI-gebruiker \"%2$s\"."
 
@@ -56,9 +59,6 @@ msgstr "Active Directory NetBIOS-domein"
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Optioneel. Bijv. EXAMPLE → EXAMPLE\\user"
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
-msgstr "Vereis dat de LDAP-gebruiker overeenkomt met de aangemelde GLPI-goedkeurder"
 
 msgid "Verify the LDAPS server certificate"
 msgstr "Controleer het LDAPS-servercertificaat"

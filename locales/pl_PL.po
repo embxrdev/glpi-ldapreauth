@@ -21,6 +21,9 @@ msgstr "Hasło Windows"
 msgid "A Windows username and password are required to approve or reject."
 msgstr "Do zatwierdzenia lub odrzucenia wymagane są nazwa użytkownika i hasło Windows."
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr "Osoba wnioskująca o zatwierdzenie nie może zatwierdzić ani odrzucić własnego wniosku — wymagana jest druga osoba."
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Użytkownik Windows „%1$s” nie zgadza się z zalogowanym użytkownikiem GLPI „%2$s”."
 
@@ -56,9 +59,6 @@ msgstr "Domena NetBIOS Active Directory"
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Opcjonalne. Np. EXAMPLE → EXAMPLE\\user"
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
-msgstr "Wymagaj, aby użytkownik LDAP był zgodny z zalogowanym zatwierdzającym GLPI"
 
 msgid "Verify the LDAPS server certificate"
 msgstr "Weryfikuj certyfikat serwera LDAPS"

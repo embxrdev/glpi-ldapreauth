@@ -21,6 +21,9 @@ msgstr "Mot de passe Windows"
 msgid "A Windows username and password are required to approve or reject."
 msgstr "Un nom d'utilisateur et un mot de passe Windows sont requis pour valider ou refuser."
 
+msgid "The approval requester cannot approve or reject their own request — a second person is required."
+msgstr "Le demandeur de la validation ne peut pas valider ou refuser sa propre demande — une seconde personne est requise."
+
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "L'utilisateur Windows « %1$s » ne correspond pas à l'utilisateur GLPI connecté « %2$s »."
 
@@ -56,9 +59,6 @@ msgstr "Domaine NetBIOS Active Directory"
 
 msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
 msgstr "Facultatif. Ex. : EXAMPLE → EXAMPLE\\user"
-
-msgid "Require the LDAP user to match the signed-in GLPI approver"
-msgstr "Exiger que l'utilisateur LDAP corresponde au valideur GLPI connecté"
 
 msgid "Verify the LDAPS server certificate"
 msgstr "Vérifier le certificat du serveur LDAPS"
