@@ -376,15 +376,24 @@ function plugin_ldapreauth_check_ldap_credentials(string $login, string $passwor
     }
 
     if (!$ok) {
-        Session::addMessageAfterRedirect(
-            sprintf(
+        // Translate the common failure causes; fall back to the raw
+        // LDAP error text only for unusual ones.
+        $errno = ldap_errno($conn);
+        if ($errno === 49) { // LDAP_INVALID_CREDENTIALS
+            $message = sprintf(
+                __('LDAP authentication failed for "%s": wrong username or password.', 'ldapreauth'),
+                $login
+            );
+        } elseif ($errno === -1) { // LDAP_SERVER_DOWN
+            $message = __('Cannot reach the LDAP server. Check the protocol (ldaps:// vs ldap://), the server name and the firewall.', 'ldapreauth');
+        } else {
+            $message = sprintf(
                 __('LDAP authentication failed for "%1$s". Error: %2$s', 'ldapreauth'),
                 $login,
                 $last_error
-            ),
-            false,
-            WARNING
-        );
+            );
+        }
+        Session::addMessageAfterRedirect($message, false, WARNING);
     }
 
     @ldap_unbind($conn);

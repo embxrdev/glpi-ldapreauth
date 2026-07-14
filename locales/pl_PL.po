@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.0\n"
+"Project-Id-Version: ldapreauth 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -125,3 +125,15 @@ msgstr "Hasło użytkownika wyszukującego"
 
 msgid "This plugin requires the PHP LDAP extension."
 msgstr "Ta wtyczka wymaga rozszerzenia PHP LDAP."
+
+msgid "Complete Step 1 first, then fill in either Step 2 (Active Directory) or Step 3 (other directories such as OpenLDAP) — one of the two is enough. Only the server itself is strictly required."
+msgstr "Najpierw wypełnij krok 1, a następnie krok 2 (Active Directory) lub krok 3 (inne katalogi, np. OpenLDAP) — wystarczy jeden z nich. Bezwzględnie wymagany jest tylko sam serwer."
+
+msgid "Optional. Only needed together with a search user DN."
+msgstr "Opcjonalne. Potrzebne tylko razem z DN użytkownika wyszukującego."
+
+msgid "LDAP authentication failed for \"%s\": wrong username or password."
+msgstr "Uwierzytelnianie LDAP nie powiodło się dla „%s”: nieprawidłowa nazwa użytkownika lub hasło."
+
+msgid "Cannot reach the LDAP server. Check the protocol (ldaps:// vs ldap://), the server name and the firewall."
+msgstr "Nie można połączyć się z serwerem LDAP. Sprawdź protokół (ldaps:// czy ldap://), nazwę serwera i zaporę."

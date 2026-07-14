@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.0\n"
+"Project-Id-Version: ldapreauth 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -125,3 +125,15 @@ msgstr "Arama kullanıcısı parolası"
 
 msgid "This plugin requires the PHP LDAP extension."
 msgstr "Bu eklenti PHP LDAP uzantısını gerektirir."
+
+msgid "Complete Step 1 first, then fill in either Step 2 (Active Directory) or Step 3 (other directories such as OpenLDAP) — one of the two is enough. Only the server itself is strictly required."
+msgstr "Önce Adım 1'i doldurun, ardından Adım 2 (Active Directory) veya Adım 3 (OpenLDAP gibi diğer dizinler) — ikisinden biri yeterlidir. Kesin olarak gerekli olan yalnızca sunucunun kendisidir."
+
+msgid "Optional. Only needed together with a search user DN."
+msgstr "İsteğe bağlı. Yalnızca arama kullanıcısı DN'si ile birlikte gereklidir."
+
+msgid "LDAP authentication failed for \"%s\": wrong username or password."
+msgstr "\"%s\" için LDAP kimlik doğrulaması başarısız oldu: kullanıcı adı veya parola yanlış."
+
+msgid "Cannot reach the LDAP server. Check the protocol (ldaps:// vs ldap://), the server name and the firewall."
+msgstr "LDAP sunucusuna ulaşılamıyor. Protokolü (ldaps:// / ldap://), sunucu adını ve güvenlik duvarını kontrol edin."

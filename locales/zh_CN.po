@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.0\n"
+"Project-Id-Version: ldapreauth 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -125,3 +125,15 @@ msgstr "搜索用户密码"
 
 msgid "This plugin requires the PHP LDAP extension."
 msgstr "此插件需要 PHP 的 LDAP 扩展。"
+
+msgid "Complete Step 1 first, then fill in either Step 2 (Active Directory) or Step 3 (other directories such as OpenLDAP) — one of the two is enough. Only the server itself is strictly required."
+msgstr "请先完成第 1 步，然后填写第 2 步（Active Directory）或第 3 步（OpenLDAP 等其他目录）——两者填一个即可。严格必填的只有服务器本身。"
+
+msgid "Optional. Only needed together with a search user DN."
+msgstr "可选。仅在填写搜索用户 DN 时需要。"
+
+msgid "LDAP authentication failed for \"%s\": wrong username or password."
+msgstr "用户“%s”的 LDAP 身份验证失败：用户名或密码错误。"
+
+msgid "Cannot reach the LDAP server. Check the protocol (ldaps:// vs ldap://), the server name and the firewall."
+msgstr "无法连接 LDAP 服务器。请检查协议（ldaps:// 与 ldap://）、服务器名称和防火墙。"

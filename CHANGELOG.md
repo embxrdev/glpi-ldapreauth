@@ -3,7 +3,7 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
-## [1.1.0] - 2026-07-14
+## [1.1.1] - 2026-07-14
 
 ### Added
 - Initial public release for GLPI 11.0.x.

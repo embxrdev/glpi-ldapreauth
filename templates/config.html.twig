@@ -12,6 +12,8 @@
 
         <div class="card-body">
 
+            <p class="text-muted">{{ __('Complete Step 1 first, then fill in either Step 2 (Active Directory) or Step 3 (other directories such as OpenLDAP) — one of the two is enough. Only the server itself is strictly required.', 'ldapreauth') }}</p>
+
             <h4 class="card-title">{{ __('Step 1 — Connection', 'ldapreauth') }}</h4>
             <p class="text-muted">{{ __('Select the protocol and the directory server. Keep certificate verification enabled whenever possible.', 'ldapreauth') }}</p>
 
@@ -28,6 +30,7 @@
                 current_config['server']|default(''),
                 __('LDAP server', 'ldapreauth'),
                 {
+                    'required': true,
                     'placeholder': 'dc01.example.com',
                     'helper': __('Host name, e.g. dc01.example.com. A full URI such as ldaps://host:636 also works and overrides the protocol.', 'ldapreauth')
                 }
@@ -106,7 +109,8 @@
             {{ fields.passwordField(
                 'bind_pass',
                 current_config['bind_pass']|default(''),
-                __('Search user password', 'ldapreauth')
+                __('Search user password', 'ldapreauth'),
+                { 'helper': __('Optional. Only needed together with a search user DN.', 'ldapreauth') }
             ) }}
 
             <div class="text-muted small mt-3">LDAP Re-auth on Approval v{{ constant('PLUGIN_LDAPREAUTH_VERSION') }}</div>

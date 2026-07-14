@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.0\n"
+"Project-Id-Version: ldapreauth 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -125,3 +125,15 @@ msgstr "Heslo vyhledávacího uživatele"
 
 msgid "This plugin requires the PHP LDAP extension."
 msgstr "Tento zásuvný modul vyžaduje rozšíření PHP LDAP."
+
+msgid "Complete Step 1 first, then fill in either Step 2 (Active Directory) or Step 3 (other directories such as OpenLDAP) — one of the two is enough. Only the server itself is strictly required."
+msgstr "Nejprve vyplňte krok 1, poté buď krok 2 (Active Directory), nebo krok 3 (jiné adresáře jako OpenLDAP) — stačí jeden z nich. Povinný je pouze samotný server."
+
+msgid "Optional. Only needed together with a search user DN."
+msgstr "Volitelné. Potřebné pouze společně s DN vyhledávacího uživatele."
+
+msgid "LDAP authentication failed for \"%s\": wrong username or password."
+msgstr "Ověření LDAP se nezdařilo pro „%s“: nesprávné uživatelské jméno nebo heslo."
+
+msgid "Cannot reach the LDAP server. Check the protocol (ldaps:// vs ldap://), the server name and the firewall."
+msgstr "LDAP server je nedostupný. Zkontrolujte protokol (ldaps:// vs. ldap://), název serveru a firewall."
