@@ -1,0 +1,21 @@
+{
+    "name": "embxr/ldapreauth",
+    "description": "GLPI plugin: enforce LDAP/Windows re-authentication before a ticket approval is accepted.",
+    "type": "glpi-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Robin Embacher",
+            "homepage": "https://embxr.eu"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "ext-ldap": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "GlpiPlugin\\Ldapreauth\\": "src/"
+        }
+    }
+}

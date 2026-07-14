@@ -1,0 +1,44 @@
+name: release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Derive version from tag
+        id: v
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Check tag matches plugin version
+        run: |
+          PV=$(grep -oP "PLUGIN_LDAPREAUTH_VERSION',\s*'\K[0-9.]+" setup.php)
+          if [ "$PV" != "${{ steps.v.outputs.version }}" ]; then
+            echo "Tag ${{ steps.v.outputs.version }} != setup.php version $PV"; exit 1
+          fi
+
+      - name: Stage plugin as ldapreauth/
+        run: |
+          mkdir -p dist/ldapreauth
+          rsync -a \
+            --exclude='.git' --exclude='.github' --exclude='docs' \
+            --exclude='dist' --exclude='.gitignore' --exclude='.gitattributes' \
+            --exclude='HANDOFF.md' --exclude='*.tar.bz2' --exclude='*.zip' \
+            ./ dist/ldapreauth/
+
+      - name: Build archive
+        run: cd dist && tar -cjf ldapreauth-${{ steps.v.outputs.version }}.tar.bz2 ldapreauth
+
+      - name: Verify archive root is ldapreauth/
+        run: |
+          top=$(tar -tjf dist/ldapreauth-${{ steps.v.outputs.version }}.tar.bz2 | head -1)
+          [ "$top" = "ldapreauth/" ] || { echo "Archive root is '$top', expected ldapreauth/"; exit 1; }
+
+      - name: Attach to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/ldapreauth-${{ steps.v.outputs.version }}.tar.bz2

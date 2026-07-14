@@ -1,0 +1,64 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ldapreauth 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-14 07:38+0000\n"
+"PO-Revision-Date: 2026-07-14 07:38+0000\n"
+"Last-Translator: Robin Embacher (embxr)\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Windows username for approval"
+msgstr ""
+
+msgid "Windows password"
+msgstr ""
+
+msgid "A Windows username and password are required to approve."
+msgstr ""
+
+msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
+msgstr ""
+
+msgid "LDAP server is not configured (Setup > General > LDAP Re-auth)."
+msgstr ""
+
+msgid "Invalid LDAP server URI: %s"
+msgstr ""
+
+msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
+msgstr ""
+
+msgid "LDAP re-authentication OK — approved as \"%s\""
+msgstr ""
+
+msgid "LDAP Re-auth on Approval"
+msgstr ""
+
+msgid "LDAP server URI"
+msgstr ""
+
+msgid "Active Directory UPN suffix"
+msgstr ""
+
+msgid "Optional. e.g. example.com → user@example.com"
+msgstr ""
+
+msgid "Active Directory NetBIOS domain"
+msgstr ""
+
+msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
+msgstr ""
+
+msgid "Require the LDAP user to match the signed-in GLPI approver"
+msgstr ""
+
+msgid "Verify the LDAPS server certificate"
+msgstr ""
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr ""

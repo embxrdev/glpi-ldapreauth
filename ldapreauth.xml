@@ -1,0 +1,48 @@
+<root>
+   <name>LDAP Re-auth on Approval</name>
+   <key>ldapreauth</key>
+   <state>stable</state>
+   <logo>https://raw.githubusercontent.com/embxrdev/glpi-ldapreauth/main/ldapreauth.png</logo>
+   <description>
+      <short>
+         <en>Require an LDAP/Windows re-authentication before a ticket approval is accepted.</en>
+         <de>Erfordert eine LDAP-/Windows-Neuanmeldung, bevor eine Ticket-Genehmigung akzeptiert wird.</de>
+      </short>
+      <long>
+         <en>Adds a Windows/LDAP credential prompt to the ticket approval (TicketValidation) flow. When an approver sets a validation to "Accepted", the plugin verifies the supplied credentials with a direct LDAP bind before the approval is written, and optionally requires that the LDAP user matches the signed-in GLPI approver. A successful approval is recorded in the ticket history. Useful for regulated or traceable approval workflows that need an explicit re-authentication step rather than relying on the existing session. All environment specifics (server URI, AD UPN suffix, NetBIOS domain, certificate verification, approver-match enforcement) are configured under Setup &gt; General.</en>
+         <de>Fügt dem Ticket-Genehmigungsprozess (TicketValidation) eine Windows-/LDAP-Anmeldeabfrage hinzu. Setzt ein Genehmiger eine Validierung auf "Akzeptiert", prüft das Plugin die Anmeldedaten per direktem LDAP-Bind, bevor die Genehmigung gespeichert wird, und verlangt optional, dass der LDAP-Benutzer mit dem angemeldeten GLPI-Benutzer übereinstimmt. Eine erfolgreiche Genehmigung wird in der Ticket-Historie protokolliert. Alle Umgebungseinstellungen werden unter Setup &gt; Allgemein konfiguriert.</de>
+      </long>
+   </description>
+   <homepage>https://embxr.eu</homepage>
+   <download>https://github.com/embxrdev/glpi-ldapreauth/releases</download>
+   <issues>https://github.com/embxrdev/glpi-ldapreauth/issues</issues>
+   <readme>https://raw.githubusercontent.com/embxrdev/glpi-ldapreauth/main/README.md</readme>
+   <authors>
+      <author>Robin Embacher (embxr)</author>
+   </authors>
+   <versions>
+      <version>
+         <num>1.0.0</num>
+         <compatibility>~11.0.0</compatibility>
+         <download_url>https://github.com/embxrdev/glpi-ldapreauth/releases/download/v1.0.0/ldapreauth-1.0.0.tar.bz2</download_url>
+      </version>
+   </versions>
+   <langs>
+      <lang>en_GB</lang>
+      <lang>de_DE</lang>
+   </langs>
+   <license>GPL v2+</license>
+   <tags>
+      <en>
+         <tag>ldap</tag>
+         <tag>authentication</tag>
+         <tag>approval</tag>
+         <tag>validation</tag>
+         <tag>security</tag>
+      </en>
+   </tags>
+   <screenshots>
+      <screenshot>https://raw.githubusercontent.com/embxrdev/glpi-ldapreauth/main/docs/screenshot-config.png</screenshot>
+      <screenshot>https://raw.githubusercontent.com/embxrdev/glpi-ldapreauth/main/docs/screenshot-approval.png</screenshot>
+   </screenshots>
+</root>

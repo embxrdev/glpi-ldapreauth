@@ -1,0 +1,6 @@
+/.github        export-ignore
+/docs           export-ignore
+/.gitignore     export-ignore
+/.gitattributes export-ignore
+/HANDOFF.md     export-ignore
+* text=auto eol=lf

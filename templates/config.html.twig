@@ -1,0 +1,56 @@
+{#
+ # LDAP Re-auth on Approval — GLPI plugin
+ # Copyright (C) 2026 Robin Embacher (embxr) — GPLv2+
+ #}
+{% import "components/form/fields_macros.html.twig" as fields %}
+
+{% if can_edit %}
+    <form name="form" action="{{ "Config"|itemtype_form_path }}" method="POST">
+        <input type="hidden" name="config_class" value="GlpiPlugin\\Ldapreauth\\Config">
+        <input type="hidden" name="config_context" value="plugin:ldapreauth">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+
+        <div class="card-body">
+            {{ fields.textField(
+                'server',
+                current_config['server'],
+                __('LDAP server URI', 'ldapreauth'),
+                { 'helper': 'ldaps://dc01.example.com' }
+            ) }}
+
+            {{ fields.textField(
+                'ad_domain',
+                current_config['ad_domain'],
+                __('Active Directory UPN suffix', 'ldapreauth'),
+                { 'helper': __('Optional. e.g. example.com → user@example.com', 'ldapreauth') }
+            ) }}
+
+            {{ fields.textField(
+                'ad_netbios',
+                current_config['ad_netbios'],
+                __('Active Directory NetBIOS domain', 'ldapreauth'),
+                { 'helper': __('Optional. e.g. EXAMPLE → EXAMPLE\\user', 'ldapreauth') }
+            ) }}
+
+            {{ fields.dropdownYesNo(
+                'enforce_glpi_match',
+                current_config['enforce_glpi_match'],
+                __('Require the LDAP user to match the signed-in GLPI approver', 'ldapreauth')
+            ) }}
+
+            {{ fields.dropdownYesNo(
+                'tls_verify',
+                current_config['tls_verify'],
+                __('Verify the LDAPS server certificate', 'ldapreauth'),
+                { 'helper': __('Turn off only for an internal CA the GLPI host does not trust.', 'ldapreauth') }
+            ) }}
+        </div>
+
+        <div class="card-footer d-flex flex-row-reverse">
+            <button type="submit" class="btn btn-primary" name="update" value="1">
+                <i class="ti ti-device-floppy"></i>
+                <span>{{ _x('button', 'Save') }}</span>
+            </button>
+        </div>
+    </form>
+{% endif %}
