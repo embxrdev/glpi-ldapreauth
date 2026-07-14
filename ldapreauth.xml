@@ -22,9 +22,9 @@
    </authors>
    <versions>
       <version>
-         <num>1.0.0</num>
+         <num>1.1.0</num>
          <compatibility>~11.0.0</compatibility>
-         <download_url>https://github.com/embxrdev/glpi-ldapreauth/releases/download/v1.0.0/ldapreauth-1.0.0.tar.bz2</download_url>
+         <download_url>https://github.com/embxrdev/glpi-ldapreauth/releases/download/v1.1.0/ldapreauth-1.1.0.tar.bz2</download_url>
       </version>
    </versions>
    <langs>

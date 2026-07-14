@@ -17,7 +17,7 @@
 
             {{ fields.dropdownArrayField(
                 'protocol',
-                current_config['protocol'],
+                current_config['protocol']|default('ldaps'),
                 { 'ldaps': 'ldaps://', 'ldap': 'ldap://' },
                 __('Protocol', 'ldapreauth'),
                 { 'helper': __('ldaps:// (recommended) encrypts the connection. Combine plain ldap:// with StartTLS.', 'ldapreauth') }
@@ -25,7 +25,7 @@
 
             {{ fields.textField(
                 'server',
-                current_config['server'],
+                current_config['server']|default(''),
                 __('LDAP server', 'ldapreauth'),
                 {
                     'placeholder': 'dc01.example.com',
@@ -35,14 +35,14 @@
 
             {{ fields.dropdownYesNo(
                 'use_starttls',
-                current_config['use_starttls'],
+                current_config['use_starttls']|default('0'),
                 __('Use StartTLS', 'ldapreauth'),
                 { 'helper': __('Upgrades a plain ldap:// connection to TLS before binding. Do not use with ldaps:// URIs.', 'ldapreauth') }
             ) }}
 
             {{ fields.dropdownYesNo(
                 'tls_verify',
-                current_config['tls_verify'],
+                current_config['tls_verify']|default('1'),
                 __('Verify the LDAPS server certificate', 'ldapreauth'),
                 { 'helper': __('Turn off only for an internal CA the GLPI host does not trust.', 'ldapreauth') }
             ) }}
@@ -52,7 +52,7 @@
 
             {{ fields.textField(
                 'ad_domain',
-                current_config['ad_domain'],
+                current_config['ad_domain']|default(''),
                 __('Active Directory UPN suffix', 'ldapreauth'),
                 {
                     'placeholder': 'example.com',
@@ -62,7 +62,7 @@
 
             {{ fields.textField(
                 'ad_netbios',
-                current_config['ad_netbios'],
+                current_config['ad_netbios']|default(''),
                 __('Active Directory NetBIOS domain', 'ldapreauth'),
                 {
                     'placeholder': 'EXAMPLE',
@@ -75,7 +75,7 @@
 
             {{ fields.textField(
                 'base_dn',
-                current_config['base_dn'],
+                current_config['base_dn']|default(''),
                 __('Base DN', 'ldapreauth'),
                 {
                     'placeholder': 'ou=people,dc=example,dc=com',
@@ -85,7 +85,7 @@
 
             {{ fields.textField(
                 'login_attr',
-                current_config['login_attr'],
+                current_config['login_attr']|default('uid'),
                 __('Login attribute', 'ldapreauth'),
                 {
                     'placeholder': 'uid',
@@ -95,7 +95,7 @@
 
             {{ fields.textField(
                 'bind_dn',
-                current_config['bind_dn'],
+                current_config['bind_dn']|default(''),
                 __('Search user DN', 'ldapreauth'),
                 {
                     'placeholder': 'cn=glpi-search,ou=service,dc=example,dc=com',
@@ -105,9 +105,11 @@
 
             {{ fields.passwordField(
                 'bind_pass',
-                current_config['bind_pass'],
+                current_config['bind_pass']|default(''),
                 __('Search user password', 'ldapreauth')
             ) }}
+
+            <div class="text-muted small mt-3">LDAP Re-auth on Approval v{{ constant('PLUGIN_LDAPREAUTH_VERSION') }}</div>
         </div>
 
         <div class="card-footer d-flex flex-row-reverse">

@@ -19,7 +19,7 @@ if (!defined('GLPI_ROOT')) {
  */
 function plugin_ldapreauth_install()
 {
-    Config::setConfigurationValues(PLUGIN_LDAPREAUTH_CONTEXT, [
+    $defaults = [
         'protocol'     => 'ldaps', // ldaps:// (recommended) or ldap://
         'server'       => '',
         'ad_domain'    => '',
@@ -30,7 +30,15 @@ function plugin_ldapreauth_install()
         'bind_pass'    => '',
         'use_starttls' => '0',
         'tls_verify'   => '1',   // verify LDAPS certificate
-    ]);
+    ];
+
+    // Seed only missing keys: setConfigurationValues() overwrites existing
+    // rows, which would wipe saved settings on every plugin update.
+    $current = Config::getConfigurationValues(PLUGIN_LDAPREAUTH_CONTEXT);
+    $missing = array_diff_key($defaults, $current);
+    if ($missing !== []) {
+        Config::setConfigurationValues(PLUGIN_LDAPREAUTH_CONTEXT, $missing);
+    }
 
     return true;
 }
@@ -360,7 +368,10 @@ function plugin_ldapreauth_check_ldap_credentials(string $login, string $passwor
             }
         }
         if (!$ok) {
-            $last_error = ldap_error($conn);
+            $err = ldap_error($conn);
+            if ($err !== '' && strcasecmp($err, 'Success') !== 0) {
+                $last_error = $err;
+            }
         }
     }
 
