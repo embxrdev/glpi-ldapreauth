@@ -13,4 +13,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Audit history entry on the parent ticket after a successful approval.
 - Configuration tab under Setup > General (Twig template, core Config controller).
 - Configurable, off-by-default relaxation of LDAPS certificate verification.
-- English and German translations.
+- Translations: English (source), Czech, Dutch, French, German, Italian,
+  Japanese, Polish, Portuguese (Brazil), Russian, Simplified Chinese, Spanish,
+  Turkish. Any other GLPI language falls back to English.

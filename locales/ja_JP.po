@@ -1,0 +1,64 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ldapreauth 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-14 07:38+0000\n"
+"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"Last-Translator: Robin Embacher (embxr)\n"
+"Language-Team: ja_JP\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Windows username for approval"
+msgstr "承認用の Windows ユーザー名"
+
+msgid "Windows password"
+msgstr "Windows パスワード"
+
+msgid "A Windows username and password are required to approve."
+msgstr "承認には Windows のユーザー名とパスワードが必要です。"
+
+msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
+msgstr "Windows ユーザー「%1$s」がサインイン中の GLPI ユーザー「%2$s」と一致しません。"
+
+msgid "LDAP server is not configured (Setup > General > LDAP Re-auth)."
+msgstr "LDAP サーバーが設定されていません（セットアップ > 一般 > LDAP Re-auth）。"
+
+msgid "Invalid LDAP server URI: %s"
+msgstr "無効な LDAP サーバー URI: %s"
+
+msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
+msgstr "「%1$s」の LDAP 認証に失敗しました。エラー: %2$s"
+
+msgid "LDAP re-authentication OK — approved as \"%s\""
+msgstr "LDAP 再認証に成功しました — 「%s」として承認"
+
+msgid "LDAP Re-auth on Approval"
+msgstr "承認時の LDAP 再認証"
+
+msgid "LDAP server URI"
+msgstr "LDAP サーバー URI"
+
+msgid "Active Directory UPN suffix"
+msgstr "Active Directory UPN サフィックス"
+
+msgid "Optional. e.g. example.com → user@example.com"
+msgstr "任意。例: example.com → user@example.com"
+
+msgid "Active Directory NetBIOS domain"
+msgstr "Active Directory NetBIOS ドメイン"
+
+msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
+msgstr "任意。例: EXAMPLE → EXAMPLE\\user"
+
+msgid "Require the LDAP user to match the signed-in GLPI approver"
+msgstr "LDAP ユーザーがサインイン中の GLPI 承認者と一致することを必須にする"
+
+msgid "Verify the LDAPS server certificate"
+msgstr "LDAPS サーバー証明書を検証する"
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr "GLPI ホストが信頼しない内部 CA の場合のみ無効にしてください。"

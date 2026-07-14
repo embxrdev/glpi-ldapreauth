@@ -1,0 +1,64 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ldapreauth 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-14 07:38+0000\n"
+"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"Last-Translator: Robin Embacher (embxr)\n"
+"Language-Team: pl_PL\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Windows username for approval"
+msgstr "Nazwa użytkownika Windows do zatwierdzenia"
+
+msgid "Windows password"
+msgstr "Hasło Windows"
+
+msgid "A Windows username and password are required to approve."
+msgstr "Do zatwierdzenia wymagane są nazwa użytkownika i hasło Windows."
+
+msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
+msgstr "Użytkownik Windows „%1$s” nie zgadza się z zalogowanym użytkownikiem GLPI „%2$s”."
+
+msgid "LDAP server is not configured (Setup > General > LDAP Re-auth)."
+msgstr "Serwer LDAP nie jest skonfigurowany (Ustawienia > Ogólne > LDAP Re-auth)."
+
+msgid "Invalid LDAP server URI: %s"
+msgstr "Nieprawidłowy URI serwera LDAP: %s"
+
+msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
+msgstr "Uwierzytelnianie LDAP nie powiodło się dla „%1$s”. Błąd: %2$s"
+
+msgid "LDAP re-authentication OK — approved as \"%s\""
+msgstr "Ponowne uwierzytelnienie LDAP powiodło się — zatwierdzono jako „%s”"
+
+msgid "LDAP Re-auth on Approval"
+msgstr "Ponowne uwierzytelnianie LDAP przy zatwierdzaniu"
+
+msgid "LDAP server URI"
+msgstr "URI serwera LDAP"
+
+msgid "Active Directory UPN suffix"
+msgstr "Sufiks UPN Active Directory"
+
+msgid "Optional. e.g. example.com → user@example.com"
+msgstr "Opcjonalne. Np. example.com → user@example.com"
+
+msgid "Active Directory NetBIOS domain"
+msgstr "Domena NetBIOS Active Directory"
+
+msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
+msgstr "Opcjonalne. Np. EXAMPLE → EXAMPLE\\user"
+
+msgid "Require the LDAP user to match the signed-in GLPI approver"
+msgstr "Wymagaj, aby użytkownik LDAP był zgodny z zalogowanym zatwierdzającym GLPI"
+
+msgid "Verify the LDAPS server certificate"
+msgstr "Weryfikuj certyfikat serwera LDAPS"
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr "Wyłącz tylko dla wewnętrznego CA, któremu host GLPI nie ufa."

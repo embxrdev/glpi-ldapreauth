@@ -52,6 +52,14 @@ tied to a fresh credential check rather than the existing browser session.
   CA into the GLPI host's trust store, or use `TLS_REQCERT` in the system
   `ldap.conf`.
 
+## Languages
+
+The interface is translated into: Czech, Dutch, English, French, German,
+Italian, Japanese, Polish, Portuguese (Brazil), Russian, Simplified Chinese,
+Spanish and Turkish. Any GLPI language without a translation automatically
+falls back to English. Corrections and new languages are welcome — edit or add
+a `locales/<lang>.po` file and open a pull request.
+
 ## Requirements
 
 - GLPI 11.0.x

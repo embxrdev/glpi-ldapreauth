@@ -29,7 +29,18 @@
    </versions>
    <langs>
       <lang>en_GB</lang>
+      <lang>cs_CZ</lang>
       <lang>de_DE</lang>
+      <lang>es_ES</lang>
+      <lang>fr_FR</lang>
+      <lang>it_IT</lang>
+      <lang>ja_JP</lang>
+      <lang>nl_NL</lang>
+      <lang>pl_PL</lang>
+      <lang>pt_BR</lang>
+      <lang>ru_RU</lang>
+      <lang>tr_TR</lang>
+      <lang>zh_CN</lang>
    </langs>
    <license>GPL v2+</license>
    <tags>

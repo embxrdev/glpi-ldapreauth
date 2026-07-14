@@ -1,0 +1,64 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ldapreauth 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-14 07:38+0000\n"
+"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"Last-Translator: Robin Embacher (embxr)\n"
+"Language-Team: zh_CN\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Windows username for approval"
+msgstr "用于审批的 Windows 用户名"
+
+msgid "Windows password"
+msgstr "Windows 密码"
+
+msgid "A Windows username and password are required to approve."
+msgstr "审批需要提供 Windows 用户名和密码。"
+
+msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
+msgstr "Windows 用户“%1$s”与已登录的 GLPI 用户“%2$s”不匹配。"
+
+msgid "LDAP server is not configured (Setup > General > LDAP Re-auth)."
+msgstr "未配置 LDAP 服务器（设置 > 常规 > LDAP Re-auth）。"
+
+msgid "Invalid LDAP server URI: %s"
+msgstr "无效的 LDAP 服务器 URI：%s"
+
+msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
+msgstr "用户“%1$s”的 LDAP 身份验证失败。错误：%2$s"
+
+msgid "LDAP re-authentication OK — approved as \"%s\""
+msgstr "LDAP 重新认证成功 — 已以“%s”身份审批"
+
+msgid "LDAP Re-auth on Approval"
+msgstr "审批时 LDAP 重新认证"
+
+msgid "LDAP server URI"
+msgstr "LDAP 服务器 URI"
+
+msgid "Active Directory UPN suffix"
+msgstr "Active Directory UPN 后缀"
+
+msgid "Optional. e.g. example.com → user@example.com"
+msgstr "可选。例如 example.com → user@example.com"
+
+msgid "Active Directory NetBIOS domain"
+msgstr "Active Directory NetBIOS 域"
+
+msgid "Optional. e.g. EXAMPLE → EXAMPLE\\user"
+msgstr "可选。例如 EXAMPLE → EXAMPLE\\user"
+
+msgid "Require the LDAP user to match the signed-in GLPI approver"
+msgstr "要求 LDAP 用户与已登录的 GLPI 审批人一致"
+
+msgid "Verify the LDAPS server certificate"
+msgstr "验证 LDAPS 服务器证书"
+
+msgid "Turn off only for an internal CA the GLPI host does not trust."
+msgstr "仅在 GLPI 主机不信任的内部 CA 时才关闭。"
