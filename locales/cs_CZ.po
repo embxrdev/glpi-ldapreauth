@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"PO-Revision-Date: 2026-07-14 12:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: cs_CZ\n"
 "Language: cs_CZ\n"
@@ -12,14 +12,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Windows username for approval"
-msgstr "Uživatelské jméno Windows pro schválení"
+msgid "Windows username"
+msgstr "Uživatelské jméno Windows"
 
 msgid "Windows password"
 msgstr "Heslo Windows"
 
-msgid "A Windows username and password are required to approve."
-msgstr "Ke schválení jsou vyžadovány uživatelské jméno a heslo Windows."
+msgid "A Windows username and password are required to approve or reject."
+msgstr "Ke schválení nebo zamítnutí jsou vyžadovány uživatelské jméno a heslo Windows."
 
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Uživatel Windows „%1$s“ neodpovídá přihlášenému uživateli GLPI „%2$s“."
@@ -35,6 +35,9 @@ msgstr "Ověření LDAP se nezdařilo pro „%1$s“. Chyba: %2$s"
 
 msgid "LDAP re-authentication OK — approved as \"%s\""
 msgstr "Opětovné ověření LDAP proběhlo úspěšně — schváleno jako „%s“"
+
+msgid "LDAP re-authentication OK — rejected as \"%s\""
+msgstr "Opětovné ověření LDAP proběhlo úspěšně — zamítnuto jako „%s“"
 
 msgid "LDAP Re-auth on Approval"
 msgstr "Opětovné ověření LDAP při schvalování"

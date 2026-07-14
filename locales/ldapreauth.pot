@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 07:38+0000\n"
+"PO-Revision-Date: 2026-07-14 12:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: \n"
 "Language: \n"
@@ -12,13 +12,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Windows username for approval"
+msgid "Windows username"
 msgstr ""
 
 msgid "Windows password"
 msgstr ""
 
-msgid "A Windows username and password are required to approve."
+msgid "A Windows username and password are required to approve or reject."
 msgstr ""
 
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
@@ -34,6 +34,9 @@ msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr ""
 
 msgid "LDAP re-authentication OK — approved as \"%s\""
+msgstr ""
+
+msgid "LDAP re-authentication OK — rejected as \"%s\""
 msgstr ""
 
 msgid "LDAP Re-auth on Approval"

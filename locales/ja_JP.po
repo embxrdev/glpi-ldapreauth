@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"PO-Revision-Date: 2026-07-14 12:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: ja_JP\n"
 "Language: ja_JP\n"
@@ -12,14 +12,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Windows username for approval"
-msgstr "承認用の Windows ユーザー名"
+msgid "Windows username"
+msgstr "Windows ユーザー名"
 
 msgid "Windows password"
 msgstr "Windows パスワード"
 
-msgid "A Windows username and password are required to approve."
-msgstr "承認には Windows のユーザー名とパスワードが必要です。"
+msgid "A Windows username and password are required to approve or reject."
+msgstr "承認または却下には Windows のユーザー名とパスワードが必要です。"
 
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Windows ユーザー「%1$s」がサインイン中の GLPI ユーザー「%2$s」と一致しません。"
@@ -35,6 +35,9 @@ msgstr "「%1$s」の LDAP 認証に失敗しました。エラー: %2$s"
 
 msgid "LDAP re-authentication OK — approved as \"%s\""
 msgstr "LDAP 再認証に成功しました — 「%s」として承認"
+
+msgid "LDAP re-authentication OK — rejected as \"%s\""
+msgstr "LDAP 再認証に成功しました — 「%s」として却下"
 
 msgid "LDAP Re-auth on Approval"
 msgstr "承認時の LDAP 再認証"

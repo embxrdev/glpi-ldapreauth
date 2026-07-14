@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"PO-Revision-Date: 2026-07-14 12:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: it_IT\n"
 "Language: it_IT\n"
@@ -12,14 +12,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Windows username for approval"
-msgstr "Nome utente Windows per l'approvazione"
+msgid "Windows username"
+msgstr "Nome utente Windows"
 
 msgid "Windows password"
 msgstr "Password di Windows"
 
-msgid "A Windows username and password are required to approve."
-msgstr "Per approvare sono richiesti nome utente e password di Windows."
+msgid "A Windows username and password are required to approve or reject."
+msgstr "Per approvare o rifiutare sono richiesti nome utente e password di Windows."
 
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "L'utente Windows \"%1$s\" non corrisponde all'utente GLPI connesso \"%2$s\"."
@@ -35,6 +35,9 @@ msgstr "Autenticazione LDAP non riuscita per \"%1$s\". Errore: %2$s"
 
 msgid "LDAP re-authentication OK — approved as \"%s\""
 msgstr "Riautenticazione LDAP riuscita — approvato come \"%s\""
+
+msgid "LDAP re-authentication OK — rejected as \"%s\""
+msgstr "Riautenticazione LDAP riuscita — rifiutato come \"%s\""
 
 msgid "LDAP Re-auth on Approval"
 msgstr "Riautenticazione LDAP all'approvazione"

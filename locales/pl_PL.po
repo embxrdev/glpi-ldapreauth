@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"PO-Revision-Date: 2026-07-14 12:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: pl_PL\n"
 "Language: pl_PL\n"
@@ -12,14 +12,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Windows username for approval"
-msgstr "Nazwa użytkownika Windows do zatwierdzenia"
+msgid "Windows username"
+msgstr "Nazwa użytkownika Windows"
 
 msgid "Windows password"
 msgstr "Hasło Windows"
 
-msgid "A Windows username and password are required to approve."
-msgstr "Do zatwierdzenia wymagane są nazwa użytkownika i hasło Windows."
+msgid "A Windows username and password are required to approve or reject."
+msgstr "Do zatwierdzenia lub odrzucenia wymagane są nazwa użytkownika i hasło Windows."
 
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Użytkownik Windows „%1$s” nie zgadza się z zalogowanym użytkownikiem GLPI „%2$s”."
@@ -35,6 +35,9 @@ msgstr "Uwierzytelnianie LDAP nie powiodło się dla „%1$s”. Błąd: %2$s"
 
 msgid "LDAP re-authentication OK — approved as \"%s\""
 msgstr "Ponowne uwierzytelnienie LDAP powiodło się — zatwierdzono jako „%s”"
+
+msgid "LDAP re-authentication OK — rejected as \"%s\""
+msgstr "Ponowne uwierzytelnienie LDAP powiodło się — odrzucono jako „%s”"
 
 msgid "LDAP Re-auth on Approval"
 msgstr "Ponowne uwierzytelnianie LDAP przy zatwierdzaniu"

@@ -52,7 +52,7 @@ function plugin_ldapreauth_post_item_form(array $params)
     }
 
     echo '<tr class="tab_bg_1">';
-    echo '  <td>' . htmlescape(__('Windows username for approval', 'ldapreauth')) . '</td>';
+    echo '  <td>' . htmlescape(__('Windows username', 'ldapreauth')) . '</td>';
     echo '  <td><input type="text" name="_ldapreauth_login" autocomplete="off"></td>';
     echo '</tr>';
 
@@ -92,10 +92,11 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
 
     $input = $item->input;
 
-    // Act only when the validation is being set to ACCEPTED.
+    // Act when the validation is being answered (accepted or rejected).
+    $status = isset($input['status']) ? (int) $input['status'] : null;
     if (
-        !isset($input['status'])
-        || (int) $input['status'] !== CommonITILValidation::ACCEPTED
+        $status !== CommonITILValidation::ACCEPTED
+        && $status !== CommonITILValidation::REFUSED
     ) {
         return;
     }
@@ -105,7 +106,7 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
     $ldap_login = $input['_ldapreauth_login']    ?? '';
     $ldap_pass  = $input['_ldapreauth_password'] ?? '';
 
-    // Block the approval, keep the previous status, drop the password.
+    // Block the decision, keep the previous status, drop the password.
     $deny = static function (CommonDBTM $item): void {
         $item->input['status'] = $item->fields['status'];
         unset($item->input['_ldapreauth_password']);
@@ -113,7 +114,7 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
 
     if ($ldap_login === '' || $ldap_pass === '') {
         Session::addMessageAfterRedirect(
-            __('A Windows username and password are required to approve.', 'ldapreauth'),
+            __('A Windows username and password are required to approve or reject.', 'ldapreauth'),
             false,
             ERROR
         );
@@ -163,7 +164,7 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
 }
 
 /**
- * After a successful re-auth approval, write an audit line to the ticket
+ * After a successful re-auth decision, write an audit line to the ticket
  * history (useful for regulated / traceable approval workflows).
  */
 function plugin_ldapreauth_item_update(CommonDBTM $item)
@@ -171,9 +172,10 @@ function plugin_ldapreauth_item_update(CommonDBTM $item)
     if (!($item instanceof TicketValidation)) {
         return;
     }
+    $status = isset($item->input['status']) ? (int) $item->input['status'] : null;
     if (
-        !isset($item->input['status'])
-        || (int) $item->input['status'] !== CommonITILValidation::ACCEPTED
+        $status !== CommonITILValidation::ACCEPTED
+        && $status !== CommonITILValidation::REFUSED
     ) {
         return;
     }
@@ -188,16 +190,17 @@ function plugin_ldapreauth_item_update(CommonDBTM $item)
         return;
     }
 
+    $message = $status === CommonITILValidation::ACCEPTED
+        ? __('LDAP re-authentication OK — approved as "%s"', 'ldapreauth')
+        : __('LDAP re-authentication OK — rejected as "%s"', 'ldapreauth');
+
     Log::history(
         $ticket_id,
         'Ticket',
         [
             0,
             '',
-            sprintf(
-                __('LDAP re-authentication OK — approved as "%s"', 'ldapreauth'),
-                $ldapuser
-            ),
+            sprintf($message, $ldapuser),
         ],
         '',
         Log::HISTORY_LOG_SIMPLE_MESSAGE

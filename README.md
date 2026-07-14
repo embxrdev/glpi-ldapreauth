@@ -1,13 +1,13 @@
 # LDAP Re-auth on Approval
 
 A GLPI plugin that enforces an **LDAP / Windows re-authentication** before a
-ticket approval (`TicketValidation`) is accepted.
+ticket approval (`TicketValidation`) is accepted or rejected.
 
-When an approver sets a validation to *Accepted*, the plugin prompts for a
-Windows/LDAP username and password, verifies them with a direct LDAP bind
-**before** the approval is written, and (optionally) requires that the LDAP
-user matches the signed-in GLPI approver. Successful approvals are recorded in
-the ticket history.
+When an approver answers a validation (*Accepted* or *Refused*), the plugin
+prompts for a Windows/LDAP username and password, verifies them with a direct
+LDAP bind **before** the decision is written, and (optionally) requires that
+the LDAP user matches the signed-in GLPI approver. Successful decisions are
+recorded in the ticket history.
 
 This provides an explicit re-authentication step for approval workflows that
 need it — for example regulated environments that require an approval to be
@@ -36,8 +36,8 @@ tied to a fresh credential check rather than the existing browser session.
 - A `post_item_form` hook adds the credential fields to the classic validation
   form; `public/js/ldapreauth.js` injects the same fields into the timeline
   answer form (below the comment field).
-- A `pre_item_update` hook blocks the approval unless the credentials bind
-  successfully (and, if enabled, the approver matches).
+- A `pre_item_update` hook blocks the decision (accept or reject) unless the
+  credentials bind successfully (and, if enabled, the approver matches).
 - An `item_update` hook writes an audit line to the parent ticket's history.
 - Settings are stored via GLPI's core `Config` (context `plugin:ldapreauth`)
   and rendered through a Twig template; the core Config controller handles

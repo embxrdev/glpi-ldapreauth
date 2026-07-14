@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: ldapreauth 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
-"PO-Revision-Date: 2026-07-14 12:00+0000\n"
+"PO-Revision-Date: 2026-07-14 12:30+0000\n"
 "Last-Translator: Robin Embacher (embxr)\n"
 "Language-Team: nl_NL\n"
 "Language: nl_NL\n"
@@ -12,14 +12,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Windows username for approval"
-msgstr "Windows-gebruikersnaam voor goedkeuring"
+msgid "Windows username"
+msgstr "Windows-gebruikersnaam"
 
 msgid "Windows password"
 msgstr "Windows-wachtwoord"
 
-msgid "A Windows username and password are required to approve."
-msgstr "Voor goedkeuring zijn een Windows-gebruikersnaam en -wachtwoord vereist."
+msgid "A Windows username and password are required to approve or reject."
+msgstr "Voor goedkeuring of afwijzing zijn een Windows-gebruikersnaam en -wachtwoord vereist."
 
 msgid "Windows user \"%1$s\" does not match the signed-in GLPI user \"%2$s\"."
 msgstr "Windows-gebruiker \"%1$s\" komt niet overeen met de aangemelde GLPI-gebruiker \"%2$s\"."
@@ -35,6 +35,9 @@ msgstr "LDAP-verificatie mislukt voor \"%1$s\". Fout: %2$s"
 
 msgid "LDAP re-authentication OK — approved as \"%s\""
 msgstr "LDAP-herverificatie geslaagd — goedgekeurd als \"%s\""
+
+msgid "LDAP re-authentication OK — rejected as \"%s\""
+msgstr "LDAP-herverificatie geslaagd — afgewezen als \"%s\""
 
 msgid "LDAP Re-auth on Approval"
 msgstr "LDAP-herverificatie bij goedkeuring"

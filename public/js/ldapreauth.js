@@ -3,7 +3,7 @@
  * Copyright (C) 2026 Robin Embacher (embxr) — GPLv2+
  *
  * Inserts Windows login/password fields below the comment field in the
- * timeline approval (TicketValidation answer) form. GLPI 11's timeline is
+ * timeline approval/rejection (TicketValidation answer) form. GLPI 11's timeline is
  * Twig-rendered and injected on demand, so we anchor on the comment
  * <textarea> and watch the DOM with a MutationObserver.
  *
@@ -32,23 +32,33 @@
         "</div>" +
       "</div>";
 
-   function isApproveEl(el) {
+   // Button keywords for both decisions, across the plugin's languages.
+   var DECISION_WORDS = [
+      // approve
+      "approve", "genehmig", "approuver", "valider", "aprob", "approv",
+      "aprova", "goedkeur", "zatwierd", "schválit", "schvál", "onayla",
+      "утверд", "承認", "批准",
+      // reject
+      "reject", "refus", "ablehn", "rechaz", "rifiut", "recus", "afwijz",
+      "weiger", "odrzu", "zamítn", "reddet", "отклон", "却下", "拒否", "拒绝"
+   ];
+
+   function isDecisionEl(el) {
       if (!el) return false;
       var t = ((el.textContent || "") + " " +
                (el.value || "") + " " +
                ((el.getAttribute && el.getAttribute("aria-label")) || "") + " " +
                ((el.getAttribute && el.getAttribute("title")) || "")).toLowerCase();
-      return t.indexOf("approve")   !== -1 ||
-             t.indexOf("genehmig")  !== -1 ||
-             t.indexOf("approuver") !== -1 ||
-             t.indexOf("valider")   !== -1 ||
-             t.indexOf("aprob")     !== -1;
+      for (var i = 0; i < DECISION_WORDS.length; i++) {
+         if (t.indexOf(DECISION_WORDS[i]) !== -1) return true;
+      }
+      return false;
    }
 
    function isApprovalForm(form) {
       var ctrls = form.querySelectorAll('button, input[type="submit"], a.btn, a[role="button"]');
       for (var i = 0; i < ctrls.length; i++) {
-         if (isApproveEl(ctrls[i])) return true;
+         if (isDecisionEl(ctrls[i])) return true;
       }
       return false;
    }
