@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.1\n"
+"Project-Id-Version: ldapreauth 1.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -39,11 +39,11 @@ msgstr "StartTLS 失败：%s"
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "用户“%1$s”的 LDAP 身份验证失败。错误：%2$s"
 
-msgid "LDAP re-authentication OK — approved as \"%s\""
-msgstr "LDAP 重新认证成功 — 已以“%s”身份审批"
+msgid "Approval authorised: \"%s\" confirmed their identity with their Windows password."
+msgstr "审批已获授权：“%s”已使用 Windows 密码确认本人身份。"
 
-msgid "LDAP re-authentication OK — rejected as \"%s\""
-msgstr "LDAP 重新认证成功 — 已以“%s”身份拒绝"
+msgid "Rejection authorised: \"%s\" confirmed their identity with their Windows password."
+msgstr "拒绝已获授权：“%s”已使用 Windows 密码确认本人身份。"
 
 msgid "LDAP Re-auth on Approval"
 msgstr "审批时 LDAP 重新认证"

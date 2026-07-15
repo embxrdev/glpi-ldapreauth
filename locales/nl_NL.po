@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.1\n"
+"Project-Id-Version: ldapreauth 1.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -39,11 +39,11 @@ msgstr "StartTLS mislukt: %s"
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "LDAP-verificatie mislukt voor \"%1$s\". Fout: %2$s"
 
-msgid "LDAP re-authentication OK — approved as \"%s\""
-msgstr "LDAP-herverificatie geslaagd — goedgekeurd als \"%s\""
+msgid "Approval authorised: \"%s\" confirmed their identity with their Windows password."
+msgstr "Goedkeuring geautoriseerd: \"%s\" heeft de eigen identiteit bevestigd met het Windows-wachtwoord."
 
-msgid "LDAP re-authentication OK — rejected as \"%s\""
-msgstr "LDAP-herverificatie geslaagd — afgewezen als \"%s\""
+msgid "Rejection authorised: \"%s\" confirmed their identity with their Windows password."
+msgstr "Afwijzing geautoriseerd: \"%s\" heeft de eigen identiteit bevestigd met het Windows-wachtwoord."
 
 msgid "LDAP Re-auth on Approval"
 msgstr "LDAP-herverificatie bij goedkeuring"

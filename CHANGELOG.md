@@ -3,7 +3,7 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
-## [1.1.1] - 2026-07-14
+## [1.1.2] - 2026-07-15
 
 ### Added
 - Initial public release for GLPI 11.0.x.
@@ -17,7 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Mandatory enforcement that the LDAP user matches the signed-in GLPI approver.
 - Four-eyes principle: the requester of a validation can never answer it
   themselves, neither via the GLPI session nor via the entered credentials.
-- Audit history entry on the parent ticket after a successful decision.
+- Audit history entry on the parent ticket after a successful decision,
+  written in plain language ("Approval authorised: … confirmed their identity
+  with their Windows password") in the language of the decision-maker.
 - Configuration tab under Setup > General (Twig template, core Config controller).
 - Configurable, off-by-default relaxation of LDAPS certificate verification.
 - Translations: English (source), Czech, Dutch, French, German, Italian,

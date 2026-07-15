@@ -231,8 +231,8 @@ function plugin_ldapreauth_item_update(CommonDBTM $item)
     }
 
     $message = $status === CommonITILValidation::ACCEPTED
-        ? __('LDAP re-authentication OK — approved as "%s"', 'ldapreauth')
-        : __('LDAP re-authentication OK — rejected as "%s"', 'ldapreauth');
+        ? __('Approval authorised: "%s" confirmed their identity with their Windows password.', 'ldapreauth')
+        : __('Rejection authorised: "%s" confirmed their identity with their Windows password.', 'ldapreauth');
 
     Log::history(
         $ticket_id,

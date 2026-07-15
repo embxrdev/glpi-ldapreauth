@@ -16,7 +16,7 @@ if (!defined('GLPI_ROOT')) {
     die('Direct access not allowed');
 }
 
-define('PLUGIN_LDAPREAUTH_VERSION', '1.1.1');
+define('PLUGIN_LDAPREAUTH_VERSION', '1.1.2');
 
 // Minimal / maximal GLPI versions (inclusive / exclusive).
 define('PLUGIN_LDAPREAUTH_MIN_GLPI', '11.0.0');

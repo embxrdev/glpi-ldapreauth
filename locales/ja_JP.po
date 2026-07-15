@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.1\n"
+"Project-Id-Version: ldapreauth 1.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -39,11 +39,11 @@ msgstr "StartTLS に失敗しました: %s"
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "「%1$s」の LDAP 認証に失敗しました。エラー: %2$s"
 
-msgid "LDAP re-authentication OK — approved as \"%s\""
-msgstr "LDAP 再認証に成功しました — 「%s」として承認"
+msgid "Approval authorised: \"%s\" confirmed their identity with their Windows password."
+msgstr "承認を実行: 「%s」が Windows パスワードで本人確認を行いました。"
 
-msgid "LDAP re-authentication OK — rejected as \"%s\""
-msgstr "LDAP 再認証に成功しました — 「%s」として却下"
+msgid "Rejection authorised: \"%s\" confirmed their identity with their Windows password."
+msgstr "却下を実行: 「%s」が Windows パスワードで本人確認を行いました。"
 
 msgid "LDAP Re-auth on Approval"
 msgstr "承認時の LDAP 再認証"
