@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.2\n"
+"Project-Id-Version: ldapreauth 1.1.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -38,12 +38,6 @@ msgstr "Error de StartTLS: %s"
 
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "Error de autenticación LDAP para «%1$s». Error: %2$s"
-
-msgid "Approval authorised: \"%s\" confirmed their identity with their Windows password."
-msgstr "Aprobación autorizada: «%s» confirmó su identidad con su contraseña de Windows."
-
-msgid "Rejection authorised: \"%s\" confirmed their identity with their Windows password."
-msgstr "Rechazo autorizado: «%s» confirmó su identidad con su contraseña de Windows."
 
 msgid "LDAP Re-auth on Approval"
 msgstr "Reautenticación LDAP en la aprobación"

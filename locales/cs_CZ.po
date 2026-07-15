@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ldapreauth 1.1.2\n"
+"Project-Id-Version: ldapreauth 1.1.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-14 07:38+0000\n"
 "PO-Revision-Date: 2026-07-14 14:30+0000\n"
@@ -38,12 +38,6 @@ msgstr "StartTLS se nezdařilo: %s"
 
 msgid "LDAP authentication failed for \"%1$s\". Error: %2$s"
 msgstr "Ověření LDAP se nezdařilo pro „%1$s“. Chyba: %2$s"
-
-msgid "Approval authorised: \"%s\" confirmed their identity with their Windows password."
-msgstr "Schválení autorizováno: „%s“ potvrdil(a) svou identitu heslem Windows."
-
-msgid "Rejection authorised: \"%s\" confirmed their identity with their Windows password."
-msgstr "Zamítnutí autorizováno: „%s“ potvrdil(a) svou identitu heslem Windows."
 
 msgid "LDAP Re-auth on Approval"
 msgstr "Opětovné ověření LDAP při schvalování"

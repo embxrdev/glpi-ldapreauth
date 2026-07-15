@@ -3,7 +3,7 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
-## [1.1.2] - 2026-07-15
+## [1.1.3] - 2026-07-15
 
 ### Added
 - Initial public release for GLPI 11.0.x.
@@ -19,7 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
   themselves, neither via the GLPI session nor via the entered credentials.
 - Audit history entry on the parent ticket after a successful decision,
   written in plain language ("Approval authorised: … confirmed their identity
-  with their Windows password") in the language of the decision-maker.
+  with their Windows password"). Deliberately always in English: history
+  entries are stored verbatim, so a fixed language keeps the audit trail
+  consistent for mixed-language teams.
 - Configuration tab under Setup > General (Twig template, core Config controller).
 - Configurable, off-by-default relaxation of LDAPS certificate verification.
 - Translations: English (source), Czech, Dutch, French, German, Italian,

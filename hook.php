@@ -230,9 +230,12 @@ function plugin_ldapreauth_item_update(CommonDBTM $item)
         return;
     }
 
+    // Deliberately NOT translated: history entries are stored verbatim and
+    // shown to every viewer as-is, so a fixed language keeps the audit
+    // trail consistent for mixed-language teams.
     $message = $status === CommonITILValidation::ACCEPTED
-        ? __('Approval authorised: "%s" confirmed their identity with their Windows password.', 'ldapreauth')
-        : __('Rejection authorised: "%s" confirmed their identity with their Windows password.', 'ldapreauth');
+        ? 'Approval authorised: "%s" confirmed their identity with their Windows password.'
+        : 'Rejection authorised: "%s" confirmed their identity with their Windows password.';
 
     Log::history(
         $ticket_id,
