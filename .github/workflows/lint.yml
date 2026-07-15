@@ -22,6 +22,30 @@ jobs:
       - name: Validate plugin XML
         run: php -r 'new SimpleXMLElement(file_get_contents("ldapreauth.xml")); echo "XML ok\n";'
 
+      - name: Validate .mo files with the Laminas Gettext loader (used by GLPI)
+        run: |
+          composer require --dev --no-interaction laminas/laminas-i18n
+          php -r '
+            require "vendor/autoload.php";
+            $loader = new Laminas\I18n\Translator\Loader\Gettext();
+            $fail = false;
+            foreach (glob("locales/*.mo") as $mo) {
+                try {
+                    $td = $loader->load("xx_XX", $mo);
+                    printf("%s: %d messages loaded\n", $mo, count($td));
+                } catch (Throwable $e) {
+                    printf("%s: FAILED — %s\n", $mo, $e->getMessage());
+                    $fail = true;
+                }
+            }
+            exit($fail ? 1 : 0);
+          '
+
+      - name: Validate .po sources with msgfmt
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq gettext
+          for po in locales/*.po; do msgfmt --check -o /dev/null "$po" && echo "$po ok"; done
+
       - name: GLPI coding standard (report only)
         continue-on-error: true
         run: |
