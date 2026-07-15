@@ -3,12 +3,19 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
-## [1.1.3] - 2026-07-15
+## [1.2.0] - 2026-07-15
 
 ### Added
 - Initial public release for GLPI 11.0.x.
-- LDAP/Windows re-authentication prompt when answering a ticket approval
-  (`TicketValidation`) — enforced for both accepting and rejecting.
+- LDAP/Windows re-authentication prompt when answering a ticket or change
+  approval (`TicketValidation` / `ChangeValidation`) — enforced for both
+  accepting and rejecting.
+- Blocked attempts (four-eyes violations, approver mismatch, failed identity
+  check) are also written to the parent object's history.
+- "Test connection" button in the configuration form (AJAX, config rights
+  required, uses only the saved settings).
+- The search user password is stored encrypted via GLPI's secured configs
+  (GLPIKey).
 - Credential verification for Active Directory (direct bind, UPN/NetBIOS) and
   generic LDAP directories (composed-DN bind and search & bind below a Base DN
   with optional service account, configurable login attribute).

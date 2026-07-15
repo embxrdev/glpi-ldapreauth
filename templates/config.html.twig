@@ -12,9 +12,15 @@
 
         <div class="card-body">
 
-            <p class="text-muted">{{ __('Complete Step 1 first, then fill in either Step 2 (Active Directory) or Step 3 (other directories such as OpenLDAP) — one of the two is enough. Only the server itself is strictly required.', 'ldapreauth') }}</p>
+            <div class="alert alert-info" role="alert">
+                <i class="ti ti-info-circle me-1"></i>
+                {{ __('Complete Step 1 first, then fill in either Step 2 (Active Directory) or Step 3 (other directories such as OpenLDAP) — one of the two is enough. Only the server itself is strictly required.', 'ldapreauth') }}
+            </div>
 
-            <h4 class="card-title">{{ __('Step 1 — Connection', 'ldapreauth') }}</h4>
+            <h4 class="card-title d-flex align-items-center gap-2 mb-1">
+                <i class="ti ti-plug-connected"></i>
+                {{ __('Step 1 — Connection', 'ldapreauth') }}
+            </h4>
             <p class="text-muted">{{ __('Select the protocol and the directory server. Keep certificate verification enabled whenever possible.', 'ldapreauth') }}</p>
 
             {{ fields.dropdownArrayField(
@@ -50,70 +56,95 @@
                 { 'helper': __('Turn off only for an internal CA the GLPI host does not trust.', 'ldapreauth') }
             ) }}
 
-            <h4 class="card-title mt-4">{{ __('Step 2 — Active Directory (direct bind)', 'ldapreauth') }}</h4>
-            <p class="text-muted">{{ __('Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories.', 'ldapreauth') }}</p>
+            <div class="mt-2">
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="ldapreauth-test">
+                    <i class="ti ti-plug-connected me-1"></i>
+                    <span>{{ __('Test connection', 'ldapreauth') }}</span>
+                </button>
+                <span id="ldapreauth-test-result" class="ms-2"></span>
+                <div class="form-text">{{ __('Save the settings first, then click to test the saved connection.', 'ldapreauth') }}</div>
+            </div>
 
-            {{ fields.textField(
-                'ad_domain',
-                current_config['ad_domain']|default(''),
-                __('Active Directory UPN suffix', 'ldapreauth'),
-                {
-                    'placeholder': 'example.com',
-                    'helper': __('Optional. e.g. example.com → user@example.com', 'ldapreauth')
-                }
-            ) }}
+            <hr class="my-4">
 
-            {{ fields.textField(
-                'ad_netbios',
-                current_config['ad_netbios']|default(''),
-                __('Active Directory NetBIOS domain', 'ldapreauth'),
-                {
-                    'placeholder': 'EXAMPLE',
-                    'helper': __('Optional. e.g. EXAMPLE → EXAMPLE\\user', 'ldapreauth')
-                }
-            ) }}
+            <div class="row g-4">
+                <div class="col-12 col-xl-6">
+                    <h4 class="card-title d-flex align-items-center gap-2 mb-1">
+                        <i class="ti ti-brand-windows"></i>
+                        {{ __('Step 2 — Active Directory (direct bind)', 'ldapreauth') }}
+                        <span class="badge badge-outline text-secondary">{{ __('optional', 'ldapreauth') }}</span>
+                    </h4>
+                    <p class="text-muted">{{ __('Only for Active Directory: short logins are expanded to user@domain and DOMAIN\\user. Skip this step for other directories.', 'ldapreauth') }}</p>
 
-            <h4 class="card-title mt-4">{{ __('Step 3 — Other directories (search & bind)', 'ldapreauth') }}</h4>
-            <p class="text-muted">{{ __('Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN.', 'ldapreauth') }}</p>
+                    {{ fields.textField(
+                        'ad_domain',
+                        current_config['ad_domain']|default(''),
+                        __('Active Directory UPN suffix', 'ldapreauth'),
+                        {
+                            'placeholder': 'example.com',
+                            'helper': __('Optional. e.g. example.com → user@example.com', 'ldapreauth')
+                        }
+                    ) }}
 
-            {{ fields.textField(
-                'base_dn',
-                current_config['base_dn']|default(''),
-                __('Base DN', 'ldapreauth'),
-                {
-                    'placeholder': 'ou=people,dc=example,dc=com',
-                    'helper': __('Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com', 'ldapreauth')
-                }
-            ) }}
+                    {{ fields.textField(
+                        'ad_netbios',
+                        current_config['ad_netbios']|default(''),
+                        __('Active Directory NetBIOS domain', 'ldapreauth'),
+                        {
+                            'placeholder': 'EXAMPLE',
+                            'helper': __('Optional. e.g. EXAMPLE → EXAMPLE\\user', 'ldapreauth')
+                        }
+                    ) }}
+                </div>
 
-            {{ fields.textField(
-                'login_attr',
-                current_config['login_attr']|default('uid'),
-                __('Login attribute', 'ldapreauth'),
-                {
-                    'placeholder': 'uid',
-                    'helper': __('Attribute compared with the entered username. e.g. uid or sAMAccountName', 'ldapreauth')
-                }
-            ) }}
+                <div class="col-12 col-xl-6">
+                    <h4 class="card-title d-flex align-items-center gap-2 mb-1">
+                        <i class="ti ti-sitemap"></i>
+                        {{ __('Step 3 — Other directories (search & bind)', 'ldapreauth') }}
+                        <span class="badge badge-outline text-secondary">{{ __('optional', 'ldapreauth') }}</span>
+                    </h4>
+                    <p class="text-muted">{{ __('Only for directories such as OpenLDAP where a short login cannot bind directly: the plugin finds the user below the Base DN and then binds with the found DN.', 'ldapreauth') }}</p>
 
-            {{ fields.textField(
-                'bind_dn',
-                current_config['bind_dn']|default(''),
-                __('Search user DN', 'ldapreauth'),
-                {
-                    'placeholder': 'cn=glpi-search,ou=service,dc=example,dc=com',
-                    'helper': __('Optional. Account used to look up the user DN. Leave empty for an anonymous search.', 'ldapreauth')
-                }
-            ) }}
+                    {{ fields.textField(
+                        'base_dn',
+                        current_config['base_dn']|default(''),
+                        __('Base DN', 'ldapreauth'),
+                        {
+                            'placeholder': 'ou=people,dc=example,dc=com',
+                            'helper': __('Optional. Enables search & bind for directories such as OpenLDAP. e.g. dc=example,dc=com', 'ldapreauth')
+                        }
+                    ) }}
 
-            {{ fields.passwordField(
-                'bind_pass',
-                current_config['bind_pass']|default(''),
-                __('Search user password', 'ldapreauth'),
-                { 'helper': __('Optional. Only needed together with a search user DN.', 'ldapreauth') }
-            ) }}
+                    {{ fields.textField(
+                        'login_attr',
+                        current_config['login_attr']|default('uid'),
+                        __('Login attribute', 'ldapreauth'),
+                        {
+                            'placeholder': 'uid',
+                            'helper': __('Attribute compared with the entered username. e.g. uid or sAMAccountName', 'ldapreauth')
+                        }
+                    ) }}
 
-            <div class="text-muted small mt-3">LDAP Re-auth on Approval v{{ constant('PLUGIN_LDAPREAUTH_VERSION') }}</div>
+                    {{ fields.textField(
+                        'bind_dn',
+                        current_config['bind_dn']|default(''),
+                        __('Search user DN', 'ldapreauth'),
+                        {
+                            'placeholder': 'cn=glpi-search,ou=service,dc=example,dc=com',
+                            'helper': __('Optional. Account used to look up the user DN. Leave empty for an anonymous search.', 'ldapreauth')
+                        }
+                    ) }}
+
+                    {{ fields.passwordField(
+                        'bind_pass',
+                        current_config['bind_pass']|default(''),
+                        __('Search user password', 'ldapreauth'),
+                        { 'helper': __('Optional. Only needed together with a search user DN.', 'ldapreauth') }
+                    ) }}
+                </div>
+            </div>
+
+            <div class="text-muted small mt-4 text-end">LDAP Re-auth on Approval v{{ constant('PLUGIN_LDAPREAUTH_VERSION') }}</div>
         </div>
 
         <div class="card-footer d-flex flex-row-reverse">
@@ -123,4 +154,29 @@
             </button>
         </div>
     </form>
+
+    <script>
+    (function () {
+        var btn = document.getElementById('ldapreauth-test');
+        if (!btn) {
+            return;
+        }
+        btn.addEventListener('click', function () {
+            var out = document.getElementById('ldapreauth-test-result');
+            out.textContent = '…';
+            out.className = 'ms-2 text-muted';
+            var root = (window.CFG_GLPI && CFG_GLPI.root_doc) ? CFG_GLPI.root_doc : '';
+            fetch(root + '/plugins/ldapreauth/ajax/testconnection.php', { credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    out.textContent = d.message;
+                    out.className = d.success ? 'ms-2 text-success' : 'ms-2 text-danger';
+                })
+                .catch(function () {
+                    out.textContent = {{ __('Connection test failed.', 'ldapreauth')|json_encode|raw }};
+                    out.className = 'ms-2 text-danger';
+                });
+        });
+    })();
+    </script>
 {% endif %}

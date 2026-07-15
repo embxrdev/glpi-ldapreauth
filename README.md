@@ -1,7 +1,8 @@
 # LDAP Re-auth on Approval
 
 A GLPI plugin that enforces an **LDAP / Windows re-authentication** before a
-ticket approval (`TicketValidation`) is accepted or rejected.
+ticket or change approval (`TicketValidation` / `ChangeValidation`) is
+accepted or rejected.
 
 When an approver answers a validation (*Accepted* or *Refused*), the plugin
 prompts for a Windows/LDAP username and password, verifies them with a direct
@@ -62,7 +63,12 @@ tied to a fresh credential check rather than the existing browser session.
 - The same hook enforces the four-eyes principle: the requester of the
   validation is rejected as decision-maker, whether identified by the GLPI
   session or by the entered Windows credentials.
-- An `item_update` hook writes an audit line to the parent ticket's history.
+- An `item_update` hook writes an audit line to the parent ticket's or
+  change's history; blocked attempts (four-eyes violation, approver mismatch,
+  failed identity check) are logged there too. Audit entries are deliberately
+  always in English so the trail stays consistent for mixed-language teams.
+- A "Test connection" button in the config form checks the saved connection
+  settings (requires config update rights).
 - Settings are stored via GLPI's core `Config` (context `plugin:ldapreauth`)
   and rendered through a Twig template; the core Config controller handles
   saving, permissions and CSRF.
@@ -73,6 +79,7 @@ tied to a fresh credential check rather than the existing browser session.
   or cache the password.
 - The approver-match and four-eyes checks are **always on** — they are not
   configurable, so an approval always involves two distinct people.
+- The search user password is stored encrypted (GLPI secured configs).
 - Certificate verification for LDAPS is **on by default**. Disabling it removes
   protection against man-in-the-middle attacks — prefer importing your internal
   CA into the GLPI host's trust store, or use `TLS_REQCERT` in the system

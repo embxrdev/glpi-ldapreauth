@@ -55,12 +55,13 @@ function plugin_ldapreauth_uninstall()
 }
 
 /**
- * Add Windows username/password fields on the classic TicketValidation form.
- * The timeline popup is handled by public/js/ldapreauth.js; field names match.
+ * Add Windows username/password fields on the classic validation forms
+ * (ticket and change approvals). The timeline popup is handled by
+ * public/js/ldapreauth.js; field names match.
  */
 function plugin_ldapreauth_post_item_form(array $params)
 {
-    if (!isset($params['item']) || !($params['item'] instanceof TicketValidation)) {
+    if (!isset($params['item']) || !($params['item'] instanceof CommonITILValidation)) {
         return;
     }
 
@@ -95,11 +96,34 @@ function plugin_ldapreauth_normalize(string $user): string
 }
 
 /**
- * Enforce Windows/LDAP re-authentication before a TicketValidation is written.
+ * Write an audit line to the history of the validated parent object
+ * (Ticket or Change). Deliberately NOT translated: history entries are
+ * stored verbatim and shown to every viewer as-is, so a fixed language
+ * keeps the audit trail consistent for mixed-language teams.
+ */
+function plugin_ldapreauth_audit(CommonITILValidation $item, string $message): void
+{
+    $fk        = $item::$items_id; // 'tickets_id' or 'changes_id'
+    $parent_id = (int) ($item->fields[$fk] ?? 0);
+    if ($parent_id <= 0) {
+        return;
+    }
+
+    Log::history(
+        $parent_id,
+        $item::getItilObjectItemType(), // 'Ticket' or 'Change'
+        [0, '', $message],
+        '',
+        Log::HISTORY_LOG_SIMPLE_MESSAGE
+    );
+}
+
+/**
+ * Enforce Windows/LDAP re-authentication before a validation is written.
  */
 function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
 {
-    if (!($item instanceof TicketValidation)) {
+    if (!($item instanceof CommonITILValidation)) {
         return;
     }
 
@@ -114,6 +138,8 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
         return;
     }
 
+    $decision_word = $status === CommonITILValidation::ACCEPTED ? 'Approval' : 'Rejection';
+
     $ldap_login = $input['_ldapreauth_login']    ?? '';
     $ldap_pass  = $input['_ldapreauth_password'] ?? '';
 
@@ -126,17 +152,22 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
     // Four-eyes principle: the requester of the validation can never answer
     // it, neither as the signed-in GLPI user nor via the entered credentials.
     $requester_id = (int) ($item->fields['users_id'] ?? 0);
-    $four_eyes_block = static function () use ($deny, $item): void {
+    $four_eyes_block = static function (string $who) use ($deny, $item, $decision_word): void {
         Session::addMessageAfterRedirect(
             __('The approval requester cannot approve or reject their own request — a second person is required.', 'ldapreauth'),
             false,
             ERROR
         );
+        plugin_ldapreauth_audit($item, sprintf(
+            '%s blocked: "%s" attempted to authorise their own request (four-eyes rule).',
+            $decision_word,
+            $who
+        ));
         $deny($item);
     };
 
     if ($requester_id > 0 && $requester_id === (int) Session::getLoginUserID()) {
-        $four_eyes_block();
+        $four_eyes_block($_SESSION['glpiname'] ?? ('user #' . (int) Session::getLoginUserID()));
         return;
     }
 
@@ -158,7 +189,7 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
         if ($requester->getFromDB($requester_id)) {
             $requester_login = plugin_ldapreauth_normalize($requester->fields['name'] ?? '');
             if ($requester_login !== '' && $requester_login === plugin_ldapreauth_normalize($ldap_login)) {
-                $four_eyes_block();
+                $four_eyes_block($ldap_login);
                 return;
             }
         }
@@ -187,6 +218,12 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
             false,
             ERROR
         );
+        plugin_ldapreauth_audit($item, sprintf(
+            '%s blocked: the Windows account "%s" does not belong to the signed-in approver "%s".',
+            $decision_word,
+            $ldap_login,
+            $glpi_login
+        ));
         $deny($item);
         return;
     }
@@ -194,6 +231,11 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
     // LDAP bind check.
     if (!plugin_ldapreauth_check_ldap_credentials($ldap_login, $ldap_pass)) {
         // Error message is added inside the check function.
+        plugin_ldapreauth_audit($item, sprintf(
+            '%s blocked: Windows identity check failed for "%s".',
+            $decision_word,
+            $ldap_login
+        ));
         $deny($item);
         return;
     }
@@ -204,12 +246,12 @@ function plugin_ldapreauth_pre_item_update(CommonDBTM $item)
 }
 
 /**
- * After a successful re-auth decision, write an audit line to the ticket
- * history (useful for regulated / traceable approval workflows).
+ * After a successful re-auth decision, write an audit line to the parent
+ * object's history (useful for regulated / traceable approval workflows).
  */
 function plugin_ldapreauth_item_update(CommonDBTM $item)
 {
-    if (!($item instanceof TicketValidation)) {
+    if (!($item instanceof CommonITILValidation)) {
         return;
     }
     $status = isset($item->input['status']) ? (int) $item->input['status'] : null;
@@ -225,29 +267,11 @@ function plugin_ldapreauth_item_update(CommonDBTM $item)
         return;
     }
 
-    $ticket_id = (int) ($item->fields['tickets_id'] ?? 0);
-    if ($ticket_id <= 0) {
-        return;
-    }
-
-    // Deliberately NOT translated: history entries are stored verbatim and
-    // shown to every viewer as-is, so a fixed language keeps the audit
-    // trail consistent for mixed-language teams.
     $message = $status === CommonITILValidation::ACCEPTED
         ? 'Approval authorised: "%s" confirmed their identity with their Windows password.'
         : 'Rejection authorised: "%s" confirmed their identity with their Windows password.';
 
-    Log::history(
-        $ticket_id,
-        'Ticket',
-        [
-            0,
-            '',
-            sprintf($message, $ldapuser),
-        ],
-        '',
-        Log::HISTORY_LOG_SIMPLE_MESSAGE
-    );
+    plugin_ldapreauth_audit($item, sprintf($message, $ldapuser));
 }
 
 /**
@@ -401,4 +425,82 @@ function plugin_ldapreauth_check_ldap_credentials(string $login, string $passwor
 
     @ldap_unbind($conn);
     return $ok;
+}
+
+/**
+ * Try to reach (and optionally bind to) the configured LDAP server.
+ * Used by the "Test connection" button in the configuration form.
+ *
+ * @return array{success: bool, message: string} translated result
+ */
+function plugin_ldapreauth_test_connection(): array
+{
+    $conf       = Config::getConfigurationValues(PLUGIN_LDAPREAUTH_CONTEXT);
+    $server_uri = trim($conf['server'] ?? '');
+    $bind_dn    = trim($conf['bind_dn'] ?? '');
+    $bind_pass  = (string) ($conf['bind_pass'] ?? '');
+    $starttls   = ($conf['use_starttls'] ?? '0') !== '0';
+    $tls_verify = ($conf['tls_verify'] ?? '1') !== '0';
+
+    if ($server_uri === '') {
+        return [
+            'success' => false,
+            'message' => __('LDAP server is not configured (Setup > General > LDAP Re-auth).', 'ldapreauth'),
+        ];
+    }
+    if (!preg_match('#^ldaps?://#i', $server_uri)) {
+        $protocol   = strtolower(trim($conf['protocol'] ?? 'ldaps')) === 'ldap' ? 'ldap' : 'ldaps';
+        $server_uri = $protocol . '://' . $server_uri;
+    }
+
+    if (!$tls_verify && defined('LDAP_OPT_X_TLS_REQUIRE_CERT') && defined('LDAP_OPT_X_TLS_NEVER')) {
+        @ldap_set_option(null, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_NEVER);
+    }
+
+    $conn = @ldap_connect($server_uri);
+    if (!$conn) {
+        return [
+            'success' => false,
+            'message' => sprintf(__('Invalid LDAP server URI: %s', 'ldapreauth'), $server_uri),
+        ];
+    }
+
+    ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
+    ldap_set_option($conn, LDAP_OPT_REFERRALS, 0);
+    @ldap_set_option($conn, LDAP_OPT_NETWORK_TIMEOUT, 5);
+    if (!$tls_verify && defined('LDAP_OPT_X_TLS_REQUIRE_CERT') && defined('LDAP_OPT_X_TLS_NEVER')) {
+        @ldap_set_option($conn, LDAP_OPT_X_TLS_REQUIRE_CERT, LDAP_OPT_X_TLS_NEVER);
+    }
+
+    if ($starttls && stripos($server_uri, 'ldaps://') !== 0) {
+        if (!@ldap_start_tls($conn)) {
+            $message = sprintf(__('StartTLS failed: %s', 'ldapreauth'), ldap_error($conn));
+            @ldap_unbind($conn);
+            return ['success' => false, 'message' => $message];
+        }
+    }
+
+    $bound = $bind_dn !== '' ? @ldap_bind($conn, $bind_dn, $bind_pass) : @ldap_bind($conn);
+    $errno = ldap_errno($conn);
+    $error = ldap_error($conn);
+    @ldap_unbind($conn);
+
+    if ($errno === -1) { // LDAP_SERVER_DOWN
+        return [
+            'success' => false,
+            'message' => __('Cannot reach the LDAP server. Check the protocol (ldaps:// vs ldap://), the server name and the firewall.', 'ldapreauth'),
+        ];
+    }
+    if (!$bound && $bind_dn !== '') {
+        return [
+            'success' => false,
+            'message' => sprintf(__('Connection established, but the search user sign-in failed: %s', 'ldapreauth'), $error),
+        ];
+    }
+
+    // Bound, or anonymous bind refused by a reachable server: connection works.
+    return [
+        'success' => true,
+        'message' => __('Connected to the LDAP server successfully.', 'ldapreauth'),
+    ];
 }

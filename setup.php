@@ -16,7 +16,7 @@ if (!defined('GLPI_ROOT')) {
     die('Direct access not allowed');
 }
 
-define('PLUGIN_LDAPREAUTH_VERSION', '1.1.3');
+define('PLUGIN_LDAPREAUTH_VERSION', '1.2.0');
 
 // Minimal / maximal GLPI versions (inclusive / exclusive).
 define('PLUGIN_LDAPREAUTH_MIN_GLPI', '11.0.0');
@@ -35,24 +35,31 @@ function plugin_init_ldapreauth()
     // Declares the plugin as CSRF-compliant (all forms carry a token).
     $PLUGIN_HOOKS['csrf_compliant']['ldapreauth'] = true;
 
+    // Let GLPI encrypt this config value with the instance GLPIKey.
+    $PLUGIN_HOOKS['secured_configs']['ldapreauth'] = ['bind_pass'];
+
     // Configuration tab under Setup > General.
     Plugin::registerClass(LdapreauthConfig::class, [
         'addtabon' => Config::class,
     ]);
 
-    // Extra Windows credential fields on the classic validation form.
+    // Extra Windows credential fields on the classic validation forms
+    // (ticket and change approvals).
     $PLUGIN_HOOKS['post_item_form']['ldapreauth'] = [
         'TicketValidation' => 'plugin_ldapreauth_post_item_form',
+        'ChangeValidation' => 'plugin_ldapreauth_post_item_form',
     ];
 
     // Enforce LDAP re-authentication before the validation row is written.
     $PLUGIN_HOOKS['pre_item_update']['ldapreauth'] = [
         'TicketValidation' => 'plugin_ldapreauth_pre_item_update',
+        'ChangeValidation' => 'plugin_ldapreauth_pre_item_update',
     ];
 
-    // Write an audit history line after a successful approval.
+    // Write an audit history line after a successful decision.
     $PLUGIN_HOOKS['item_update']['ldapreauth'] = [
         'TicketValidation' => 'plugin_ldapreauth_item_update',
+        'ChangeValidation' => 'plugin_ldapreauth_item_update',
     ];
 
     // JS that injects the credential fields into the timeline answer form.

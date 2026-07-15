@@ -9,8 +9,8 @@
          <de>Erfordert eine LDAP-/Windows-Neuanmeldung, bevor eine Ticket-Genehmigung akzeptiert oder abgelehnt wird.</de>
       </short>
       <long>
-         <en>Adds a Windows/LDAP credential prompt to the ticket approval (TicketValidation) flow. When an approver answers a validation (accepts or rejects), the plugin verifies the supplied credentials with a direct LDAP bind before the decision is written and requires that the LDAP user matches the signed-in GLPI approver. A four-eyes principle is always enforced: the requester of a validation can never answer it themselves. A successful decision is recorded in the ticket history. Useful for regulated or traceable approval workflows that need an explicit re-authentication step rather than relying on the existing session. Works with Active Directory (direct bind via UPN/NetBIOS) as well as generic LDAP directories such as OpenLDAP (composed-DN bind or search &amp; bind below a base DN), over ldaps://, StartTLS or plain ldap://. A guided, step-by-step configuration form under Setup &gt; General covers all environment specifics.</en>
-         <de>Fügt dem Ticket-Genehmigungsprozess (TicketValidation) eine Windows-/LDAP-Anmeldeabfrage hinzu. Beantwortet ein Genehmiger eine Validierung (Akzeptieren oder Ablehnen), prüft das Plugin die Anmeldedaten per direktem LDAP-Bind, bevor die Entscheidung gespeichert wird, und verlangt, dass der LDAP-Benutzer mit dem angemeldeten GLPI-Benutzer übereinstimmt. Ein Vier-Augen-Prinzip wird immer durchgesetzt: Der Anforderer einer Validierung kann sie nie selbst beantworten. Eine erfolgreiche Entscheidung wird in der Ticket-Historie protokolliert. Funktioniert mit Active Directory (Direkt-Bind über UPN/NetBIOS) sowie generischen LDAP-Verzeichnissen wie OpenLDAP (zusammengesetzter DN oder Suchen &amp; Binden unterhalb eines Basis-DN), über ldaps://, StartTLS oder ldap://. Ein geführtes Schritt-für-Schritt-Konfigurationsformular unter Setup &gt; Allgemein deckt alle Umgebungseinstellungen ab.</de>
+         <en>Adds a Windows/LDAP credential prompt to the ticket and change approval (TicketValidation / ChangeValidation) flows. When an approver answers a validation (accepts or rejects), the plugin verifies the supplied credentials with a direct LDAP bind before the decision is written and requires that the LDAP user matches the signed-in GLPI approver. A four-eyes principle is always enforced: the requester of a validation can never answer it themselves. Successful and blocked decisions are recorded in the ticket or change history. Useful for regulated or traceable approval workflows that need an explicit re-authentication step rather than relying on the existing session. Works with Active Directory (direct bind via UPN/NetBIOS) as well as generic LDAP directories such as OpenLDAP (composed-DN bind or search &amp; bind below a base DN), over ldaps://, StartTLS or plain ldap://. A guided, step-by-step configuration form under Setup &gt; General covers all environment specifics.</en>
+         <de>Fügt den Genehmigungsprozessen für Tickets und Changes (TicketValidation / ChangeValidation) eine Windows-/LDAP-Anmeldeabfrage hinzu. Beantwortet ein Genehmiger eine Validierung (Akzeptieren oder Ablehnen), prüft das Plugin die Anmeldedaten per direktem LDAP-Bind, bevor die Entscheidung gespeichert wird, und verlangt, dass der LDAP-Benutzer mit dem angemeldeten GLPI-Benutzer übereinstimmt. Ein Vier-Augen-Prinzip wird immer durchgesetzt: Der Anforderer einer Validierung kann sie nie selbst beantworten. Erfolgreiche und blockierte Entscheidungen werden in der Historie des Tickets bzw. Changes protokolliert. Funktioniert mit Active Directory (Direkt-Bind über UPN/NetBIOS) sowie generischen LDAP-Verzeichnissen wie OpenLDAP (zusammengesetzter DN oder Suchen &amp; Binden unterhalb eines Basis-DN), über ldaps://, StartTLS oder ldap://. Ein geführtes Schritt-für-Schritt-Konfigurationsformular unter Setup &gt; Allgemein deckt alle Umgebungseinstellungen ab.</de>
       </long>
    </description>
    <homepage>https://embxr.eu</homepage>
@@ -22,9 +22,9 @@
    </authors>
    <versions>
       <version>
-         <num>1.1.3</num>
+         <num>1.2.0</num>
          <compatibility>~11.0.0</compatibility>
-         <download_url>https://github.com/embxrdev/glpi-ldapreauth/releases/download/v1.1.3/ldapreauth-1.1.3.tar.bz2</download_url>
+         <download_url>https://github.com/embxrdev/glpi-ldapreauth/releases/download/v1.2.0/ldapreauth-1.2.0.tar.bz2</download_url>
       </version>
    </versions>
    <langs>
